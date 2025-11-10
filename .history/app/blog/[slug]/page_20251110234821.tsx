@@ -10,7 +10,6 @@ import Sidebar from "@/components/blog-single/Sidebar";
 import SocialShare2 from "@/components/blog-single/SocialShare2";
 import Comment from "@/components/blog-single/Comment";
 import BlogCard1 from "@/components/blog-cards/BlogCard1";
-import type { PageProps } from "next"; // <<— Next 15 PageProps (params is a Promise)
 
 type Blog = {
   _id: string;
@@ -26,7 +25,7 @@ type Blog = {
 
 const API = process.env.NEXT_PUBLIC_API_BASE || "";
 
-// -------- helpers --------
+// ===== Helpers =====
 async function fetchBlog(slug: string): Promise<Blog | null> {
   try {
     const r = await fetch(`${API}/api/blogs/${encodeURIComponent(slug)}`, {
@@ -34,7 +33,8 @@ async function fetchBlog(slug: string): Promise<Blog | null> {
     });
     if (!r.ok) return null;
     return r.json();
-  } catch {
+  } catch (e) {
+    console.error("Fetch blog error:", e);
     return null;
   }
 }
@@ -60,14 +60,17 @@ async function fetchRelated(
   }
 }
 
-// -------- metadata --------
-export async function generateMetadata(
-  { params }: PageProps<{ slug: string }>
-) {
-  const { slug } = await params; // <<— await the Promise
-  const blog = await fetchBlog(slug);
-  if (!blog) return { title: "Post not found" };
-
+// ===== Metadata =====
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const blog = await fetchBlog(params.slug);
+  if (!blog)
+    return {
+      title: "Post not found",
+    };
   return {
     title: `${blog.title} || Drozy - Modern Blog & Magazine`,
     description: blog.category?.name || "Blog article",
@@ -81,13 +84,13 @@ export async function generateMetadata(
   };
 }
 
-// -------- page --------
-export default async function Page(
-  { params }: PageProps<{ slug: string }>
-) {
-  const { slug } = await params; // <<— await the Promise
-
-  const blog = await fetchBlog(slug);
+// ===== Page Component =====
+export default async function Page({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const blog = await fetchBlog(params.slug);
   if (!blog) return notFound();
 
   const related = await fetchRelated(
@@ -100,6 +103,7 @@ export default async function Page(
     <>
       <Header1 />
 
+      {/* Schema Markup (JSON-LD) */}
       {blog.schemaMarkup ? (
         <Script
           id={`schema-${blog.slug}`}
@@ -109,11 +113,15 @@ export default async function Page(
         />
       ) : null}
 
-      {/* breadcrumb */}
+      {/* Breadcrumb */}
       <div className="bg-surface2-color">
         <div className="tf-container">
           <ul className="breadcrumb text-caption-1 text_on-surface-color">
-            <li><Link href="/" className="link">Home</Link></li>
+            <li>
+              <Link href="/" className="link">
+                Home
+              </Link>
+            </li>
             <li>
               <Link href="/categories-1" className="link">
                 {blog.category?.name || "Category"}
@@ -124,7 +132,7 @@ export default async function Page(
         </div>
       </div>
 
-      {/* hero */}
+      {/* Hero Section */}
       <div className="heading-post style-1">
         <div className="tf-container">
           <div className="post-inner">
@@ -138,7 +146,12 @@ export default async function Page(
                 <ul className="meta-feature fw-7 d-flex mb_16 text-body-1 mb-0 align-items-center">
                   <li>
                     {new Date(blog.createdAt || Date.now()).toLocaleDateString(
-                      undefined, { year: "numeric", month: "long", day: "numeric" }
+                      undefined,
+                      {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      }
                     )}
                   </li>
                   <li>
@@ -150,7 +163,12 @@ export default async function Page(
               <h1 className="mb_20">{blog.title}</h1>
               <div className="user-post d-flex align-items-center gap_20">
                 <div className="avatar">
-                  <img alt="avatar" src="/images/avatar/avatar-1.jpg" width={100} height={100} />
+                  <img
+                    alt="avatar"
+                    src="/images/avatar/avatar-1.jpg"
+                    width={100}
+                    height={100}
+                  />
                 </div>
                 <p className="fw-7">
                   <span className="text_secodary2-color">Post by</span>{" "}
@@ -163,7 +181,10 @@ export default async function Page(
               <Image
                 className="lazyload"
                 alt={blog.title}
-                src={blog.mainImage?.url || "/images/feature-post/thumbs-main-post-1.webp"}
+                src={
+                  blog.mainImage?.url ||
+                  "/images/feature-post/thumbs-main-post-1.webp"
+                }
                 width={1350}
                 height={1013}
                 style={{ maxHeight: "100vh", objectFit: "contain" }}
@@ -173,32 +194,41 @@ export default async function Page(
         </div>
       </div>
 
-      {/* main */}
+      {/* Main Content */}
       <div className="main-content">
         <div className="single-post style-1">
           <div className="tf-container">
             <div className="row">
+              {/* Left Share */}
               <div className="col-lg-2 lg-hide">
                 <div className="share-bar style-1 text-center sticky-top">
                   <h5 className="mb_20">Share This Post</h5>
-                  <ul className="d-grid gap_10"><SocialShare2 /></ul>
+                  <ul className="d-grid gap_10">
+                    <SocialShare2 />
+                  </ul>
                 </div>
               </div>
 
+              {/* Center Content */}
               <div className="col-lg-7">
                 <div className="content-inner">
                   <div className="wrap-post-details">
                     <div className="post-details">
                       <div
                         className="post-details__html"
-                        dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
+                        dangerouslySetInnerHTML={{
+                          __html: blog.contentHtml,
+                        }}
                       />
                     </div>
+
+                    {/* Comments */}
                     <Comment postId={blog._id} />
                   </div>
                 </div>
               </div>
 
+              {/* Right Sidebar */}
               <div className="col-lg-3">
                 <Sidebar />
               </div>
@@ -206,6 +236,7 @@ export default async function Page(
           </div>
         </div>
 
+        {/* Related Posts */}
         {related.length > 0 && (
           <div className="tf-container sw-layout tf-spacing-8">
             <div className="heading-section mb_28">
