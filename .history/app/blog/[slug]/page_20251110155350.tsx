@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // ------- page -------
-export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+export default async function Page({ params }: { params: Promise<{ slug: string } }) {
   const blog = await fetchBlog(params.slug);
   if (!blog) return notFound();
 

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1762454339262,
@@ -56,6 +56,14 @@
                 {
                     "date": 1762629858295,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,8 +76,17 @@\n \n   return (\n     <>\n       <Header1 />\n+      {/* JSON-LD (from backend textarea) */}\n+{blog.schemaMarkup ? (\n+  <Script\n+    id={`schema-${blog.slug}`}\n+    type=\"application/ld+json\"\n+    strategy=\"afterInteractive\"\n+    dangerouslySetInnerHTML={{ __html: blog.schemaMarkup }}\n+  />\n+) : null}\n \n       {/* breadcrumb */}\n       <div className=\"bg-surface2-color\">\n         <div className=\"tf-container\">\n"
+                },
+                {
+                    "date": 1762770231252,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n   };\n }\n \n // ------- page -------\n-export default async function Page({ params }: { params: { slug: string } }) {\n+export default async function Page({ params }: { params: Promise<{ slug: string } }) {\n   const blog = await fetchBlog(params.slug);\n   if (!blog) return notFound();\n \n   const related = await fetchRelated(\n"
+                },
+                {
+                    "date": 1762770242882,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n   };\n }\n \n // ------- page -------\n-export default async function Page({ params }: { params: Promise<{ slug: string } }) {\n+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {\n   const blog = await fetchBlog(params.slug);\n   if (!blog) return notFound();\n \n   const related = await fetchRelated(\n"
                 }
             ],
             "date": 1762454339262,
