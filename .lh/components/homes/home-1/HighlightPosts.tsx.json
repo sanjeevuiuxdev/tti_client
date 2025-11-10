@@ -1,0 +1,18 @@
+{
+    "sourceFile": "components/homes/home-1/HighlightPosts.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1762373475996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1762373475996,
+            "name": "Commit-0",
+            "content": "// app/(wherever)/components/homes/home-1/highlightposts.tsx\r\n// Server Component: no \"use client\"\r\nimport BlogCard1 from \"@/components/blog-cards/BlogCard1\";\r\nimport { fetchBlogs } from \"@/lib/blogs\";\r\n\r\ntype Blog = {\r\n  _id: string;\r\n  slug: string;\r\n  title: string;\r\n  postedBy?: string;\r\n  mainImage?: { url?: string };\r\n  category?: { name?: string; slug?: string };\r\n  createdAt?: string;\r\n  contentHtml?: string;\r\n};\r\n\r\nfunction fmtDate(iso?: string) {\r\n  if (!iso) return \"\";\r\n  try {\r\n    return new Date(iso).toLocaleDateString(\"en-GB\", {\r\n      day: \"2-digit\",\r\n      month: \"short\",\r\n      year: \"numeric\",\r\n    });\r\n  } catch { return \"\"; }\r\n}\r\nfunction plain(html = \"\", max = 120) {\r\n  const s = html.replace(/<[^>]*>/g, \" \").replace(/\\s+/g, \" \").trim();\r\n  return s.length > max ? s.slice(0, max) + \"…\" : s;\r\n}\r\n\r\n// Adapt backend Blog → BlogCard1 props (expects imgSrc, id, date, author, title, category, excerpt)\r\nfunction toCard(b: Blog) {\r\n  return {\r\n    id: b.slug,\r\n    imgSrc: b.mainImage?.url || \"\",\r\n    date: fmtDate(b.createdAt),\r\n    author: b.postedBy || \"\",\r\n    title: b.title,\r\n    category: b.category?.name || \"\",\r\n    excerpt: plain(b.contentHtml || \"\", 140),\r\n  };\r\n}\r\n\r\nexport default async function HighlightPosts() {\r\n  // grab up to 18 highlight posts\r\n  const blogs = await fetchBlogs({ section: \"highlights\", limit: 18 });\r\n  const items = blogs.map(toCard);\r\n  if (!items.length) return null;\r\n\r\n  // split into 3 roughly equal columns\r\n  const colA: any[] = [];\r\n  const colB: any[] = [];\r\n  const colC: any[] = [];\r\n  items.forEach((p, i) => {\r\n    if (i % 3 === 0) colA.push(p);\r\n    else if (i % 3 === 1) colB.push(p);\r\n    else colC.push(p);\r\n  });\r\n\r\n  return (\r\n    <div className=\"section-highlight\">\r\n      <div className=\"tf-container\">\r\n        <div className=\"heading-section mb_28\">\r\n          <h3 className=\"title\">Highlights</h3>\r\n        </div>\r\n\r\n        <div className=\"tf-grid-layout lg-col-3\">\r\n          <div className=\"col-feature item-grid\">\r\n            {colA.map((post) => (\r\n              <BlogCard1 key={post.id} post={post} />\r\n            ))}\r\n          </div>\r\n\r\n          <div className=\"col-feature item-grid\">\r\n            {colB.map((post) => (\r\n              <BlogCard1 key={post.id} post={post} />\r\n            ))}\r\n          </div>\r\n\r\n          <div className=\"col-feature item-grid\">\r\n            {colC.map((post) => (\r\n              <BlogCard1 key={post.id} post={post} />\r\n            ))}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n"
+        }
+    ]
+}
