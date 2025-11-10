@@ -1,8 +1,9 @@
-// app/blog/[slug]/page.tsx
-import Link from "next/link";
+// app/(blog-single)/single-post-1/[id]/page.tsx
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import Link from "next/link";
 import Script from "next/script";
+import { notFound } from "next/navigation";
+import type { PageProps } from "next";
 
 import Header1 from "@/components/headers/Header1";
 import Footer1 from "@/components/footers/Footer1";
@@ -10,7 +11,6 @@ import Sidebar from "@/components/blog-single/Sidebar";
 import SocialShare2 from "@/components/blog-single/SocialShare2";
 import Comment from "@/components/blog-single/Comment";
 import BlogCard1 from "@/components/blog-cards/BlogCard1";
-import type { PageProps } from "next";
 
 type Blog = {
   _id: string;
@@ -27,29 +27,29 @@ type Blog = {
 const API = process.env.NEXT_PUBLIC_API_BASE!;
 
 // ------- helpers -------
-async function fetchBlog(slug: string): Promise<Blog | null> {
-  const r = await fetch(`${API}/api/blogs/${slug}`, { cache: "no-store" });
-  if (!r.ok) return null;
-  return r.json();
+async function fetchBlog(id: string): Promise<Blog | null> {
+  const res = await fetch(`${API}/api/blogs/${id}`, { cache: "no-store" });
+  if (!res.ok) return null;
+  return res.json();
 }
 
-async function fetchRelated(catName?: string, catSlug?: string, currentSlug?: string) {
-  const r = await fetch(`${API}/api/blogs?limit=100`, { cache: "no-store" });
-  if (!r.ok) return [];
-  const rows: Blog[] = await r.json();
+async function fetchRelated(catName?: string, catSlug?: string, currentId?: string) {
+  const res = await fetch(`${API}/api/blogs?limit=100`, { cache: "no-store" });
+  if (!res.ok) return [];
+  const rows: Blog[] = await res.json();
   return rows
     .filter(
       (b) =>
-        b.slug !== currentSlug &&
+        b._id !== currentId &&
         (b.category?.slug === catSlug || b.category?.name === catName)
     )
     .slice(0, 4);
 }
 
 // ------- metadata -------
-export async function generateMetadata({ params }: PageProps<{ slug: string }>) {
-  const { slug } = await params; // ✅ must await in Next 15
-  const blog = await fetchBlog(slug);
+export async function generateMetadata({ params }: PageProps<{ id: string }>) {
+  const { id } = await params;
+  const blog = await fetchBlog(id);
   if (!blog) return {};
   return {
     title: `${blog.title} || Drozy - Modern Blog & Magazine`,
@@ -58,22 +58,22 @@ export async function generateMetadata({ params }: PageProps<{ slug: string }>) 
       title: blog.title,
       description: blog.category?.name || "Blog article",
       type: "article",
-      url: `/blog/${blog.slug}`,
+      url: `/blog-single/single-post-1/${blog._id}`,
       images: blog.mainImage?.url ? [blog.mainImage.url] : undefined,
     },
   };
 }
 
 // ------- page -------
-export default async function Page({ params }: PageProps<{ slug: string }>) {
-  const { slug } = await params; // ✅ must await
-  const blog = await fetchBlog(slug);
+export default async function Page({ params }: PageProps<{ id: string }>) {
+  const { id } = await params;
+  const blog = await fetchBlog(id);
   if (!blog) return notFound();
 
   const related = await fetchRelated(
     blog.category?.name,
     blog.category?.slug,
-    blog.slug
+    blog._id
   );
 
   return (
@@ -83,7 +83,7 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
       {/* JSON-LD (from backend textarea) */}
       {blog.schemaMarkup ? (
         <Script
-          id={`schema-${blog.slug}`}
+          id={`schema-${blog._id}`}
           type="application/ld+json"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: blog.schemaMarkup }}
@@ -192,6 +192,8 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
                         dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
                       />
                     </div>
+
+                    {/* ✅ FIXED: Added required prop */}
                     <Comment postId={blog._id} />
                   </div>
                 </div>
@@ -222,7 +224,7 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
                     category: b.category?.name || "",
                     date: new Date(b.createdAt || Date.now()).toLocaleDateString(),
                     imgSrc: b.mainImage?.url || "",
-                    href: `/blog/${b.slug}`,
+                    href: `/blog-single/single-post-1/${b._id}`,
                   }}
                 />
               ))}

@@ -10,7 +10,6 @@ import Sidebar from "@/components/blog-single/Sidebar";
 import SocialShare2 from "@/components/blog-single/SocialShare2";
 import Comment from "@/components/blog-single/Comment";
 import BlogCard1 from "@/components/blog-cards/BlogCard1";
-import type { PageProps } from "next";
 
 type Blog = {
   _id: string;
@@ -33,6 +32,8 @@ async function fetchBlog(slug: string): Promise<Blog | null> {
   return r.json();
 }
 
+// We fetch a chunk then filter by category locally (your backend list route
+// doesn’t support ?category yet).
 async function fetchRelated(catName?: string, catSlug?: string, currentSlug?: string) {
   const r = await fetch(`${API}/api/blogs?limit=100`, { cache: "no-store" });
   if (!r.ok) return [];
@@ -46,10 +47,8 @@ async function fetchRelated(catName?: string, catSlug?: string, currentSlug?: st
     .slice(0, 4);
 }
 
-// ------- metadata -------
-export async function generateMetadata({ params }: PageProps<{ slug: string }>) {
-  const { slug } = await params; // ✅ must await in Next 15
-  const blog = await fetchBlog(slug);
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const blog = await fetchBlog(params.slug);
   if (!blog) return {};
   return {
     title: `${blog.title} || Drozy - Modern Blog & Magazine`,
@@ -65,9 +64,8 @@ export async function generateMetadata({ params }: PageProps<{ slug: string }>) 
 }
 
 // ------- page -------
-export default async function Page({ params }: PageProps<{ slug: string }>) {
-  const { slug } = await params; // ✅ must await
-  const blog = await fetchBlog(slug);
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const blog = await fetchBlog(params.slug);
   if (!blog) return notFound();
 
   const related = await fetchRelated(
@@ -79,25 +77,22 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
   return (
     <>
       <Header1 />
-
       {/* JSON-LD (from backend textarea) */}
-      {blog.schemaMarkup ? (
-        <Script
-          id={`schema-${blog.slug}`}
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: blog.schemaMarkup }}
-        />
-      ) : null}
+{blog.schemaMarkup ? (
+  <Script
+    id={`schema-${blog.slug}`}
+    type="application/ld+json"
+    strategy="afterInteractive"
+    dangerouslySetInnerHTML={{ __html: blog.schemaMarkup }}
+  />
+) : null}
 
       {/* breadcrumb */}
       <div className="bg-surface2-color">
         <div className="tf-container">
           <ul className="breadcrumb text-caption-1 text_on-surface-color">
             <li>
-              <Link href="/" className="link">
-                Home
-              </Link>
+              <Link href="/" className="link">Home</Link>
             </li>
             <li>
               <Link href="/categories-1" className="link">
@@ -116,16 +111,13 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
             <div className="content">
               <div className="wrap-meta-feature d-flex align-items-center">
                 <span className="tag">
-                  <a className="text-title text_white">
-                    {blog.category?.name || "CATEGORY"}
-                  </a>
+                  <a className="text-title text_white">{blog.category?.name || "CATEGORY"}</a>
                 </span>
                 <ul className="meta-feature fw-7 d-flex mb_16 text-body-1 mb-0 align-items-center">
                   <li>
-                    {new Date(blog.createdAt || Date.now()).toLocaleDateString(
-                      undefined,
-                      { year: "numeric", month: "long", day: "numeric" }
-                    )}
+                    {new Date(blog.createdAt || Date.now()).toLocaleDateString(undefined, {
+                      year: "numeric", month: "long", day: "numeric",
+                    })}
                   </li>
                   <li>
                     <span className="text_secodary2-color">POST BY</span>{" "}
@@ -136,12 +128,7 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
               <h1 className="mb_20">{blog.title}</h1>
               <div className="user-post d-flex align-items-center gap_20">
                 <div className="avatar">
-                  <img
-                    alt="avatar"
-                    src="/images/avatar/avatar-1.jpg"
-                    width={100}
-                    height={100}
-                  />
+                  <img alt="avatar" src="/images/avatar/avatar-1.jpg" width={100} height={100} />
                 </div>
                 <p className="fw-7">
                   <span className="text_secodary2-color">Post by</span>{" "}
@@ -154,10 +141,7 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
               <Image
                 className="lazyload"
                 alt={blog.title}
-                src={
-                  blog.mainImage?.url ||
-                  "/images/feature-post/thumbs-main-post-1.webp"
-                }
+                src={blog.mainImage?.url || "/images/feature-post/thumbs-main-post-1.webp"}
                 width={1350}
                 height={1013}
                 style={{ maxHeight: "100vh", objectFit: "contain" }}
@@ -167,7 +151,7 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
         </div>
       </div>
 
-      {/* main grid */}
+      {/* main grid (keeps template layout) */}
       <div className="main-content">
         <div className="single-post style-1">
           <div className="tf-container">
@@ -182,7 +166,7 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
                 </div>
               </div>
 
-              {/* center column */}
+              {/* center column: article + comments */}
               <div className="col-lg-7">
                 <div className="content-inner">
                   <div className="wrap-post-details">
@@ -192,8 +176,11 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
                         dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
                       />
                     </div>
-                    <Comment postId={blog._id} />
+                    {/* COMMENTS + FORM (from your template) */}
+                  <Comment postId={blog._id}/>
                   </div>
+
+                  
                 </div>
               </div>
 
@@ -205,7 +192,7 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
           </div>
         </div>
 
-        {/* Related Posts */}
+        {/* Related Posts (dynamic by category) */}
         {related.length > 0 && (
           <div className="tf-container sw-layout tf-spacing-8">
             <div className="heading-section mb_28">
@@ -232,6 +219,8 @@ export default async function Page({ params }: PageProps<{ slug: string }>) {
       </div>
 
       <Footer1 parentClass="tf-container" />
+
+      
     </>
   );
 }

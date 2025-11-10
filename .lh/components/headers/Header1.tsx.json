@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1762586669626,
@@ -12,6 +12,10 @@
                 {
                     "date": 1762587415039,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,9 @@\n                 alt=\"logo\"\r\n                 className=\"main-logo dark-mode-logo\"\r\n                 width={193}\r\n                 height={44}\r\n-                src=\"/images/logo/logo-dark.svg\"\r\n+                src=\"/images/logo/logo-dark.png\"\r\n               />\r\n             </Link>\r\n             <div className=\"wrap d-flex justify-content-end\">\r\n               <DarkModeToggler />\r\n"
+                },
+                {
+                    "date": 1762778923168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,15 +105,15 @@\n               <ul className=\"navigation\">\r\n                 <Nav />\r\n               </ul>\r\n             </nav>\r\n-            <a\r\n+            {/* <a\r\n               className=\"btn-find link-no-action\"\r\n               href=\"#canvasSearch\"\r\n               data-bs-toggle=\"offcanvas\"\r\n             >\r\n               <i className=\"icon-search\" />\r\n-            </a>\r\n+            </a> */}\r\n           </div>\r\n         </div>\r\n       </div>\r\n       {/* End header-menu */}\r\n"
                 }
             ],
             "date": 1762586669626,
