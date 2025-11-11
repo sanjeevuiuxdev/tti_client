@@ -116,9 +116,7 @@ export default async function Page({
                 <div>
                   {visible.length ? (
                     visible.map((post) => <BlogCard4 
-                    // post={post as any} 
-                    post={{ ...post, id: String(post._id) }}
-                    key={post._id} />)
+                    post={post as any} key={post._id} />)
                   ) : (
                     <p>No articles found.</p>
                   )}
