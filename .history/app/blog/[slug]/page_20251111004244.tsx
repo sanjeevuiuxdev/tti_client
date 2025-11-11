@@ -85,6 +85,7 @@ export async function generateMetadata(
 export default async function Page(
   { params }: PageProps<{ slug: string }>
 ) {
+  const { id } = await params;
   const { slug } = await params; // <<— await the Promise
 
   const blog = await fetchBlog(slug);

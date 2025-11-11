@@ -85,6 +85,7 @@ export async function generateMetadata(
 export default async function Page(
   { params }: PageProps<{ slug: string }>
 ) {
+  const { id } = await params;
   const { slug } = await params; // <<— await the Promise
 
   const blog = await fetchBlog(slug);
@@ -194,7 +195,8 @@ export default async function Page(
                         dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
                       />
                     </div>
-                    <Comment postId={blog._id} />
+                    {/* <Comment postId={blog._id} />
+                     */}
                   </div>
                 </div>
               </div>

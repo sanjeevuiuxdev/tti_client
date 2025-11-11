@@ -11,12 +11,8 @@ type CommentRow = {
   createdAt?: string;
 };
 
-export default function Comment({ postId }: { postId?: string }) {
+export default function Comment({ postId }: { postId: string }) {
   const API = process.env.NEXT_PUBLIC_API_BASE!;
-
-  // normalize once; empty string if missing (so we can guard)
-  const id = typeof postId === "string" ? postId : "";
-
   const [rows, setRows] = useState<CommentRow[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,33 +20,59 @@ export default function Comment({ postId }: { postId?: string }) {
   const [sending, setSending] = useState(false);
 
   async function load() {
-    if (!id) return; // no post id, don’t call
-    const r = await fetch(`${API}/api/comments?postId=${encodeURIComponent(id)}`, { cache: "no-store" });
-    if (r.ok) setRows(await r.json());
+    if (!postId) return;
+    try {
+      // ⬇️ use the id name your backend expects
+      const r = 
+      // await fetch(`${API}/api/comments?eventId=${encodeURIComponent(postId)}`, {cache: "no-store",});
+      await fetch(`${API}/api/comments?postId=${encodeURIComponent(postId)}`, { cache: "no-store" });
+
+      if (!r.ok) {
+        const txt = await r.text();
+        console.error("Comments GET failed:", r.status, txt);
+        setRows([]);
+        return;
+      }
+      setRows(await r.json());
+    } catch (e) {
+      console.error("Comments GET error:", e);
+      setRows([]);
+    }
   }
 
-  useEffect(() => { load(); /* eslint-disable-next-line */ }, [id]);
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postId]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!id) { alert("PostId missing – cannot submit comment."); return; }
-    if (!name || !email || !message) { alert("Fill all fields"); return; }
+    if (!name || !email || !message) return alert("Fill all fields");
 
     setSending(true);
     try {
+      // ⬇️ send eventId (NOT postId)
       const r = await fetch(`${API}/api/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ postId: id, name, email, message }),
+        body: JSON.stringify({ eventId: postId, name, email, message }),
       });
+
       if (!r.ok) {
-        const t = await r.json().catch(() => ({}));
-        alert(`Failed (400). ${JSON.stringify(t)}`);
-      } else {
-        setName(""); setEmail(""); setMessage("");
-        alert("Thanks! Your comment will appear after approval.");
-        load();
+        const txt = await r.text();
+        console.error("Comment POST failed:", r.status, txt);
+        alert(`Failed (${r.status}). ${txt}`);
+        return;
       }
+
+      setName("");
+      setEmail("");
+      setMessage("");
+      alert("Thanks! Your comment will appear after approval.");
+      load(); // refresh list in case auto-approves in dev
+    } catch (e) {
+      console.error("Comment POST error:", e);
+      alert("Network error.");
     } finally {
       setSending(false);
     }
@@ -85,22 +107,39 @@ export default function Comment({ postId }: { postId?: string }) {
       <div className="leave-comment mt_28">
         <h3 className="mb_16">Leave A Comment</h3>
         <form onSubmit={submit} className="row g-3">
-          <input type="hidden" value={id} />
           <div className="col-md-6">
-            <input className="tf-input" placeholder="Your Name*" value={name}
-                   onChange={(e) => setName(e.target.value)} required />
+            <input
+              className="tf-input"
+              placeholder="Your Name*"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
           </div>
           <div className="col-md-6">
-            <input className="tf-input" placeholder="Your Email*" type="email" value={email}
-                   onChange={(e) => setEmail(e.target.value)} required />
+            <input
+              className="tf-input"
+              placeholder="Your Email*"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           <div className="col-12">
-            <textarea className="tf-textarea" placeholder="Your Comment*" rows={5} value={message}
-                      onChange={(e) => setMessage(e.target.value)} required />
+            <textarea
+              className="tf-textarea"
+              placeholder="Your Comment*"
+              rows={5}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+            />
           </div>
           <div className="col-12">
-            <button className="tf-btn" disabled={sending || !id}>
-              {!id ? "Loading..." : (sending ? "Submitting..." : "Submit Review")}
+            <button className="tf-btn" disabled={sending}>
+              {sending ? "Submitting..." : "Submit Review"}
             </button>
           </div>
         </form>
