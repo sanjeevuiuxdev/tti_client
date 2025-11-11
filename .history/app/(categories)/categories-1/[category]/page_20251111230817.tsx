@@ -103,7 +103,7 @@ export default async function page({
                         {filtered
                           .slice((page - 1) * 9, page * 9)
                           .map((post, index) => (
-                            <BlogCard1 key={index} post={{ ...post, id: String(post.id) }} />
+                            <BlogCard1 key={index} post={post} />
                           ))}
                       </div>
                       {pages > 1 ? (

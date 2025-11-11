@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1762882698853,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1762882833307,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,9 +102,9 @@\n                       <div className=\"tf-grid-layout lg-col-3 md-col-2\">\r\n                         {filtered\r\n                           .slice((page - 1) * 9, page * 9)\r\n                           .map((post, index) => (\r\n-                            <BlogCard1 key={index} post={post} />\r\n+                            <BlogCard1 key={index} post={{ ...post, id: String(post.id) }} />\r\n                           ))}\r\n                       </div>\r\n                       {pages > 1 ? (\r\n                         <ul className=\"wg-pagination d-flex justify-content-center gap_12\">\r\n"
                 }
             ],
             "date": 1762882698853,
