@@ -66,7 +66,7 @@ export default async function page({
                   Home
                 </Link>
               </li>
-              <li>Categoriessdcx</li>
+              <li>Categories</li>
               <li>{unslugify(category)}</li>
             </ul>
           </div>

@@ -66,7 +66,7 @@ export default async function page({
                   Home
                 </Link>
               </li>
-              <li>Categoriessdcx</li>
+              <li>Categories</li>
               <li>{unslugify(category)}</li>
             </ul>
           </div>
@@ -94,7 +94,7 @@ export default async function page({
               <div className="row">
                 <div className="col-lg-9">
                   {listPosts.map((post, index) => (
-                    <BlogCard4 post={post} key={index} />
+                    <BlogCard4 post={{ ...post, id: String(post.id) }} key={index} />
                   ))}
                   <span className="tf-line" />
                   {filtered.length ? (

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1762882698853,
@@ -12,6 +12,22 @@
                 {
                     "date": 1762882833307,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,9 +102,9 @@\n                       <div className=\"tf-grid-layout lg-col-3 md-col-2\">\r\n                         {filtered\r\n                           .slice((page - 1) * 9, page * 9)\r\n                           .map((post, index) => (\r\n-                            <BlogCard1 key={index} post={post} />\r\n+                            <BlogCard1 key={index} post={{ ...post, id: String(post.id) }} />\r\n                           ))}\r\n                       </div>\r\n                       {pages > 1 ? (\r\n                         <ul className=\"wg-pagination d-flex justify-content-center gap_12\">\r\n"
+                },
+                {
+                    "date": 1762883778776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,9 +102,9 @@\n                       <div className=\"tf-grid-layout lg-col-3 md-col-2\">\r\n                         {filtered\r\n                           .slice((page - 1) * 9, page * 9)\r\n                           .map((post, index) => (\r\n-                            <BlogCard1 key={index} post={{ ...post, id: String(post.id) }} />\r\n+                            <BlogCard1  />\r\n                           ))}\r\n                       </div>\r\n                       {pages > 1 ? (\r\n                         <ul className=\"wg-pagination d-flex justify-content-center gap_12\">\r\n"
+                },
+                {
+                    "date": 1762883800008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,18 +93,18 @@\n             <div className=\"tf-container\">\r\n               <div className=\"row\">\r\n                 <div className=\"col-lg-9\">\r\n                   {listPosts.map((post, index) => (\r\n-                    <BlogCard4 post={{ ...post, id: String(post.id) }} key={index} />\r\n+                    <BlogCard4 key={index} post={post} />\r\n                   ))}\r\n                   <span className=\"tf-line\" />\r\n                   {filtered.length ? (\r\n                     <>\r\n                       <div className=\"tf-grid-layout lg-col-3 md-col-2\">\r\n                         {filtered\r\n                           .slice((page - 1) * 9, page * 9)\r\n                           .map((post, index) => (\r\n-                            <BlogCard1  />\r\n+                            <BlogCard1 key={index} post={post} />\r\n                           ))}\r\n                       </div>\r\n                       {pages > 1 ? (\r\n                         <ul className=\"wg-pagination d-flex justify-content-center gap_12\">\r\n"
+                },
+                {
+                    "date": 1762883811739,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,9 +93,9 @@\n             <div className=\"tf-container\">\r\n               <div className=\"row\">\r\n                 <div className=\"col-lg-9\">\r\n                   {listPosts.map((post, index) => (\r\n-                    <BlogCard4 key={index} post={post} />\r\n+                    <BlogCard4 post={post} key={index} />\r\n                   ))}\r\n                   <span className=\"tf-line\" />\r\n                   {filtered.length ? (\r\n                     <>\r\n"
+                },
+                {
+                    "date": 1762884688495,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n                 <Link href={`/`} className=\"link\">\r\n                   Home\r\n                 </Link>\r\n               </li>\r\n-              <li>Categories</li>\r\n+              <li>Categoriessdcx</li>\r\n               <li>{unslugify(category)}</li>\r\n             </ul>\r\n           </div>\r\n         </div>\r\n"
                 }
             ],
             "date": 1762882698853,
