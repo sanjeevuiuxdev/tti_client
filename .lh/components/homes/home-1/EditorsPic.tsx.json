@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1762372279614,
@@ -40,6 +40,14 @@
                 {
                     "date": 1762530065620,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n                   </li>\r\n                 </ul>\r\n                 <h2 className=\"title mb_20\">\r\n                   <Link\r\n-                    href={`/blog/${post.slug}`}\r\n+                    href={`/blog/${mainPost.slug}`}\r\n                     className=\"link line-clamp-2\"\r\n                   >\r\n                     {mainPost.title}\r\n                   </Link>\r\n@@ -155,9 +155,9 @@\n                       <i className=\"icon-Timer\" /> 4 Mins read\r\n                     </div>\r\n                   </div>\r\n                   <Link\r\n-                    href={`/blog/${post.slug}`}\r\n+                    href={`/blog/${mainPost.slug}`}\r\n                     className=\"overlay-link\"\r\n                   />\r\n                 </div>\r\n \r\n@@ -172,9 +172,9 @@\n                     </li>\r\n                   </ul>\r\n                   <h5 className=\"title mb_16\">\r\n                     <Link\r\n-                      href={`/blog/${post.slug}`}\r\n+                      href={`/blog/${mainPost.slug}`}\r\n                       className=\"link line-clamp-2\"\r\n                     >\r\n                       {post.title}\r\n                     </Link>\r\n"
+                },
+                {
+                    "date": 1762971998404,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -150,11 +150,11 @@\n                       className=\"tag categories text-caption-2 text_white\"\r\n                     >\r\n                       {post.category?.name || \"\"}\r\n                     </Link>\r\n-                    <div className=\"tag time text-caption-2 text_white\">\r\n+                    {/* <div className=\"tag time text-caption-2 text_white\">\r\n                       <i className=\"icon-Timer\" /> 4 Mins read\r\n-                    </div>\r\n+                    </div> */}\r\n                   </div>\r\n                   <Link\r\n                     href={`/blog/${mainPost.slug}`}\r\n                     className=\"overlay-link\"\r\n"
+                },
+                {
+                    "date": 1762972023680,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,11 +82,11 @@\n                       className=\"tag categories text-caption-2 text_white\"\r\n                     >\r\n                       {mainPost.category?.name || \"\"}\r\n                     </Link>\r\n-                    <div className=\"tag time text-caption-2 text_white\">\r\n+                    {/* <div className=\"tag time text-caption-2 text_white\">\r\n                       <i className=\"icon-Timer\" /> 4 Mins read\r\n-                    </div>\r\n+                    </div> */}\r\n                   </div>\r\n                   <Link\r\n                     href={`/blog/${mainPost.slug}`}\r\n                     className=\"overlay-link\"\r\n"
                 }
             ],
             "date": 1762372279614,

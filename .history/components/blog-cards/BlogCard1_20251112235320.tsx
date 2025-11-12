@@ -90,9 +90,9 @@ export default function BlogCard1({ post }: { post: AnyPost }) {
                 {catLabel}
               </Link>
             )}
-            {/* <div className="tag time text-caption-2 text_white">
+            <div className="tag time text-caption-2 text_white">
               <i className="icon-Timer" /> 4 Mins read
-            </div> */}
+            </div>
           </div>
           <Link href={href} className="overlay-link" />
         </div>

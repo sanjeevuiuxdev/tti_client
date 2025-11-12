@@ -56,14 +56,14 @@ export default function Footer1({
               <img
                 alt="logo"
                 className="main-logo light-mode-logo"
-                src="/images/logo/logo-footer.png"
+                src="/images/logo/l"
                 width={194}
                 height={44}
               />
               <img
                 alt="logo"
                 className="main-logo dark-mode-logo"
-                src="/images/logo/logo-dark-footer.png"
+                src="/images/logo/logo-dark.svg"
                 width={194}
                 height={44}
               />
@@ -169,13 +169,36 @@ export default function Footer1({
           </div>
 
           {/* Newsletter */}
-     
+          {!(type == 3) && (
+            <div className="footer-newsletter footer-item">
+              <h6 className="footer-title mb_20">
+                Subscribe for all the top news!
+              </h6>
+              <NewsLetterForm />
+              <div className="box-fieldset-item d-flex">
+                <fieldset className="d-flex gap_12">
+                  <input type="checkbox" className="tf-check" id="note" />
+                </fieldset>
+                <p className="text-body-1">
+                  By clicking the Subscribe button, you acknowledge that you
+                  have read and agree to our{" "}
+                  <a href="#" className="fw-7 text_on-surface-color">
+                    Privacy Policy
+                  </a>{" "}
+                  and{" "}
+                  <a href="#" className="fw-7 text_on-surface-color">
+                    Terms Of Use
+                  </a>
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Footer bottom */}
         <div className="footer-bottom d-flex align-items-center justify-content-between">
           <p className="text-caption-1">
-            {new Date().getFullYear()} TTI WORLD CONNECT. All Rights Reserved.
+            {new Date().getFullYear()} Drozy. All Rights Reserved.
           </p>
           <ul className="list d-flex">
             {policies.map((item, index) => (

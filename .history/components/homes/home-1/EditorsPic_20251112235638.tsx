@@ -83,9 +83,9 @@ export default function EditorsPic() {
                     >
                       {mainPost.category?.name || ""}
                     </Link>
-                    {/* <div className="tag time text-caption-2 text_white">
+                    <div className="tag time text-caption-2 text_white">
                       <i className="icon-Timer" /> 4 Mins read
-                    </div> */}
+                    </div>
                   </div>
                   <Link
                     href={`/blog/${mainPost.slug}`}

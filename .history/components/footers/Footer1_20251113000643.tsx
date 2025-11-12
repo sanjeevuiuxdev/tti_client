@@ -175,7 +175,7 @@ export default function Footer1({
         {/* Footer bottom */}
         <div className="footer-bottom d-flex align-items-center justify-content-between">
           <p className="text-caption-1">
-            {new Date().getFullYear()} TTI WORLD CONNECT. All Rights Reserved.
+            {new Date().getFullYear()} Drozy. All Rights Reserved.
           </p>
           <ul className="list d-flex">
             {policies.map((item, index) => (
