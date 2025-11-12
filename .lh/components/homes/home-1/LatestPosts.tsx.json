@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 12,
             "patches": [
                 {
                     "date": 1762286090425,
@@ -52,6 +52,10 @@
                 {
                     "date": 1762450642179,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,10 @@\n \r\n // Adapt backend Blog → BlogCard1 expected props\r\n function toCardPost(b: Blog) {\r\n   return {\r\n-    id: b.slug,                            // BlogCard1 links use `id`; give it the slug\r\n+    id: b.slug,    \r\n+    slug: b.slug,                         // BlogCard1 links use `id`; give it the slug\r\n     imgSrc: b.mainImage?.url || \"\",        // ✅ BlogCard1 reads `imgSrc`\r\n     category: b.category?.name || \"\",\r\n     author: b.postedBy || \"\",\r\n     date: fmtDate(b.createdAt),\r\n"
+                },
+                {
+                    "date": 1762937396355,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+// components/homes/home-1/LatestPosts.tsx\r\n // Server Component: no \"use client\"\r\n import BlogCard1 from \"@/components/blog-cards/BlogCard1\";\r\n import { fetchBlogs } from \"@/lib/blogs\";\r\n \r\n@@ -7,20 +8,18 @@\n   title: string;\r\n   slug: string;\r\n   postedBy?: string;\r\n   mainImage?: { url?: string };\r\n-  category?: { name: string; slug: string };\r\n+  category?: { name?: string; slug?: string };\r\n   createdAt?: string;\r\n   contentHtml?: string;\r\n };\r\n \r\n-// tiny helper: strip HTML for a short excerpt\r\n function plain(text = \"\", max = 120) {\r\n   const s = text.replace(/<[^>]+>/g, \" \").replace(/\\s+/g, \" \").trim();\r\n   return s.length > max ? s.slice(0, max) + \"…\" : s;\r\n }\r\n \r\n-// format a readable date string\r\n function fmtDate(iso?: string) {\r\n   if (!iso) return \"\";\r\n   try {\r\n     return new Date(iso).toLocaleDateString(\"en-GB\", {\r\n@@ -32,14 +31,14 @@\n     return \"\";\r\n   }\r\n }\r\n \r\n-// Adapt backend Blog → BlogCard1 expected props\r\n+// Map backend Blog → BlogCard1 props\r\n function toCardPost(b: Blog) {\r\n   return {\r\n-    id: b.slug,    \r\n-    slug: b.slug,                         // BlogCard1 links use `id`; give it the slug\r\n-    imgSrc: b.mainImage?.url || \"\",        // ✅ BlogCard1 reads `imgSrc`\r\n+    id: b.slug,                     // BlogCard1 key\r\n+    slug: b.slug,                   // BlogCard1 uses slug for links\r\n+    imgSrc: b.mainImage?.url || \"\",\r\n     category: b.category?.name || \"\",\r\n     author: b.postedBy || \"\",\r\n     date: fmtDate(b.createdAt),\r\n     title: b.title,\r\n@@ -47,12 +46,13 @@\n   };\r\n }\r\n \r\n export default async function LatestPosts() {\r\n-  // only the section you want on this block\r\n   const blogs = await fetchBlogs({ section: \"latest_posts\", limit: 6 });\r\n-  const items = blogs.map(toCardPost);\r\n \r\n+  // Make the array type explicit to avoid implicit-any during map usage\r\n+  const items: Array<ReturnType<typeof toCardPost>> = blogs.map(toCardPost);\r\n+\r\n   if (!items.length) return null;\r\n \r\n   return (\r\n     <div className=\"tf-container tf-spacing-1\">\r\n@@ -60,9 +60,9 @@\n         <h3 className=\"title\">Latest Posts</h3>\r\n       </div>\r\n \r\n       <div className=\"tf-grid-layout xxl-col-4 sm-col-2\">\r\n-        {items.map((post) => (\r\n+        {items.map((post: ReturnType<typeof toCardPost>) => (\r\n           <BlogCard1 key={post.id} post={post} />\r\n         ))}\r\n       </div>\r\n     </div>\r\n"
                 }
             ],
             "date": 1762286090425,
