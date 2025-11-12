@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/(homes)/homepage-2/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1762973577630,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1762973577630,
+            "name": "Commit-0",
+            "content": "import Footer1 from \"@/components/footers/Footer1\";\r\nimport Header2 from \"@/components/headers/Header2\";\r\nimport Categories from \"@/components/homes/home-2/Categories\";\r\nimport Cta from \"@/components/homes/home-2/Cta\";\r\nimport Hero from \"@/components/homes/home-2/Hero\";\r\nimport HighlightPosts from \"@/components/homes/home-2/HighlightPosts\";\r\nimport InstagramPosts from \"@/components/homes/home-2/InstagramPosts\";\r\nimport LatestPosts from \"@/components/homes/home-2/LatestPosts\";\r\nimport PopularBlogs from \"@/components/homes/home-2/PopularBlogs\";\r\n\r\nimport type { Metadata } from \"next\";\r\nexport const metadata: Metadata = {\r\n  title: \"Home 02 || Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n  description: \"dfd Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n};\r\nexport default function page() {\r\n  return (\r\n    <>\r\n      <Header2 />\r\n      <Hero />\r\n      <div className=\"main-content\">\r\n        <Categories />\r\n        <PopularBlogs />\r\n        <Cta />\r\n        <LatestPosts />\r\n        <HighlightPosts />\r\n        <InstagramPosts />\r\n      </div>\r\n      <Footer1 type={2} parentClass=\"tf-container w-xxl tf-spacing-8 pt-0\" />\r\n    </>\r\n  );\r\n}\r\n"
+        }
+    ]
+}

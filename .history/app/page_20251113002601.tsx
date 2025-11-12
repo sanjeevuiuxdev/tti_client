@@ -8,8 +8,8 @@ import LatestPosts from "@/components/homes/home-1/LatestPosts";
 import PopularBlogs from "@/components/homes/home-1/PopularBlogs";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "TTI WORLD CONNECT",
-  description: "TTI WORLD CONNECT - Modern Blog Website",
+  title: "",
+  description: "Drozy - Modern Blog & Magazine React Nextjs Template",
 };
 export default function Home() {
   return (

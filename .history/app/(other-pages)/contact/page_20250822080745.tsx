@@ -42,8 +42,8 @@ const contactItems = [
 ];
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Contact",
-  description: "Contact",
+  title: "Contact || Drozy - Modern Blog & Magazine React Nextjs Template",
+  description: "Drozy - Modern Blog & Magazine React Nextjs Template",
 };
 export default function page() {
   return (

@@ -7,7 +7,7 @@ import { listItems, moreListItems } from "@/data/about";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
-  description: "About",
+  description: "Ab",
 };
 export default function page() {
   return (

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1762972685590,
@@ -16,6 +16,14 @@
                 {
                     "date": 1762972732748,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n       <div className=\"page-title style-1\">\r\n         <div className=\"tf-container\">\r\n           <div className=\"heading-title text-center\">\r\n             <div className=\"mb_20 text-display-1 fw-7 text_on-surface-color\">\r\n-              About TTI WORLD CONNECT\r\n+              ABOUT TTI WORLD CONNECT\r\n             </div>\r\n             <p className=\"h5\">\r\n               We’re A Passionate Team Of Creatives, Storytellers, And Experts\r\n               <br />\r\n"
+                },
+                {
+                    "date": 1762974007907,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n import { listItems, moreListItems } from \"@/data/about\";\r\n \r\n import type { Metadata } from \"next\";\r\n export const metadata: Metadata = {\r\n-  title: \"About || Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n+  title: \"About\",\r\n   description: \"Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n };\r\n export default function page() {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1762974008146,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n \r\n import type { Metadata } from \"next\";\r\n export const metadata: Metadata = {\r\n   title: \"About\",\r\n-  description: \"Ab\",\r\n+  description: \"Abo\",\r\n };\r\n export default function page() {\r\n   return (\r\n     <>\r\n"
                 }
             ],
             "date": 1762972685590,

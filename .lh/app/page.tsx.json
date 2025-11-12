@@ -1,0 +1,42 @@
+{
+    "sourceFile": "app/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1762973721272,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1762973759407,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n import LatestPosts from \"@/components/homes/home-1/LatestPosts\";\r\n import PopularBlogs from \"@/components/homes/home-1/PopularBlogs\";\r\n import type { Metadata } from \"next\";\r\n export const metadata: Metadata = {\r\n-  title: \"Home h || Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n+  title: \"Home h || Drozy - Modern Blog & Magazine React Nextjs Templa\",\r\n   description: \"Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n };\r\n export default function Home() {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1762973765152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n import LatestPosts from \"@/components/homes/home-1/LatestPosts\";\r\n import PopularBlogs from \"@/components/homes/home-1/PopularBlogs\";\r\n import type { Metadata } from \"next\";\r\n export const metadata: Metadata = {\r\n-  title: \"Home h || Drozy - Modern Blog & Magazine React Nextjs Templa\",\r\n+  title: \"TTI EEW\",\r\n   description: \"Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n };\r\n export default function Home() {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1762973771877,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n import LatestPosts from \"@/components/homes/home-1/LatestPosts\";\r\n import PopularBlogs from \"@/components/homes/home-1/PopularBlogs\";\r\n import type { Metadata } from \"next\";\r\n export const metadata: Metadata = {\r\n-  title: \"TTI EEW\",\r\n+  title: \"TTI WORLD CONNECT\",\r\n   description: \"Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n };\r\n export default function Home() {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1762973784341,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n import PopularBlogs from \"@/components/homes/home-1/PopularBlogs\";\r\n import type { Metadata } from \"next\";\r\n export const metadata: Metadata = {\r\n   title: \"TTI WORLD CONNECT\",\r\n-  description: \"Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n+  description: \"TTI WORLD CONNECT - Modern Blog & Magazine React Nextjs Template\",\r\n };\r\n export default function Home() {\r\n   return (\r\n     <>\r\n"
+                },
+                {
+                    "date": 1762973789833,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n import PopularBlogs from \"@/components/homes/home-1/PopularBlogs\";\r\n import type { Metadata } from \"next\";\r\n export const metadata: Metadata = {\r\n   title: \"TTI WORLD CONNECT\",\r\n-  description: \"TTI WORLD CONNECT - Modern Blog & Magazine React Nextjs Template\",\r\n+  description: \"TTI WORLD CONNECT - Modern Blog \",\r\n };\r\n export default function Home() {\r\n   return (\r\n     <>\r\n"
+                },
+                {
+                    "date": 1762973797299,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n import PopularBlogs from \"@/components/homes/home-1/PopularBlogs\";\r\n import type { Metadata } from \"next\";\r\n export const metadata: Metadata = {\r\n   title: \"TTI WORLD CONNECT\",\r\n-  description: \"TTI WORLD CONNECT - Modern Blog \",\r\n+  description: \"TTI WORLD CONNECT - Modern Blog Website\",\r\n };\r\n export default function Home() {\r\n   return (\r\n     <>\r\n"
+                }
+            ],
+            "date": 1762973721272,
+            "name": "Commit-0",
+            "content": "import Footer1 from \"@/components/footers/Footer1\";\r\nimport Header1 from \"@/components/headers/Header1\";\r\nimport Cta from \"@/components/homes/home-1/Cta\";\r\nimport EditorsPic from \"@/components/homes/home-1/EditorsPic\";\r\nimport Hero from \"@/components/homes/home-1/Hero\";\r\nimport HighlightPosts from \"@/components/homes/home-1/HighlightPosts\";\r\nimport LatestPosts from \"@/components/homes/home-1/LatestPosts\";\r\nimport PopularBlogs from \"@/components/homes/home-1/PopularBlogs\";\r\nimport type { Metadata } from \"next\";\r\nexport const metadata: Metadata = {\r\n  title: \"Home h || Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n  description: \"Drozy - Modern Blog & Magazine React Nextjs Template\",\r\n};\r\nexport default function Home() {\r\n  return (\r\n    <>\r\n      <Header1 />\r\n      <Hero />\r\n      <div className=\"main-content\">\r\n        <PopularBlogs />\r\n        <EditorsPic />\r\n        <LatestPosts />\r\n        <HighlightPosts />\r\n        <Cta />\r\n      </div>\r\n      <Footer1 />\r\n    </>\r\n  );\r\n}\r\n"
+        }
+    ]
+}

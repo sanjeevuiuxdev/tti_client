@@ -43,7 +43,7 @@ const contactItems = [
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact",
+  description: "Conta",
 };
 export default function page() {
   return (

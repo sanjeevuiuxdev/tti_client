@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "All Blogs",
-  description: "All Blogs",
+  description: "Drozy - Modern Blog & Magazine React Nextjs Template",
 };
 
 type Blog = {
