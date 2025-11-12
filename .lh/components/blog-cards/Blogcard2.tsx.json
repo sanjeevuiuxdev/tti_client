@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1762450558895,
@@ -12,6 +12,10 @@
                 {
                     "date": 1762450613519,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \r\n export default function Blogcard2({ post }: { post: BlogPost }) {\r\n   return (\r\n     <div className=\"feature-post-item style-small d-flex align-items-center hover-image-rotate\">\r\n-      <Link href={`/single-post-1/${post.id}`} className=\"img-style\">\r\n+      <Link href={`/blog/${post.slug}`} className=\"img-style\">\r\n         {post.imgSrc ? (\r\n           <Image\r\n             decoding=\"async\"\r\n             loading=\"lazy\"\r\n"
+                },
+                {
+                    "date": 1762933576376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,39 +1,49 @@\n+// components/blog-cards/Blogcard2.tsx\r\n import { BlogPost } from \"@/types/blog-post\";\r\n import Image from \"next/image\";\r\n import Link from \"next/link\";\r\n \r\n export default function Blogcard2({ post }: { post: BlogPost }) {\r\n+  const img =\r\n+    (post as any).mainImage?.url || (post as any).imgSrc || \"/images/default-thumb.webp\";\r\n+  const author = (post as any).postedBy || (post as any).author || \"Unknown\";\r\n+  const date =\r\n+    post.createdAt\r\n+      ? new Date(post.createdAt).toLocaleDateString(\"en-GB\", {\r\n+          day: \"2-digit\",\r\n+          month: \"short\",\r\n+          year: \"numeric\",\r\n+        })\r\n+      : (post as any).date || \"\";\r\n+\r\n   return (\r\n     <div className=\"feature-post-item style-small d-flex align-items-center hover-image-rotate\">\r\n       <Link href={`/blog/${post.slug}`} className=\"img-style\">\r\n-        {post.imgSrc ? (\r\n+        {img && (\r\n           <Image\r\n             decoding=\"async\"\r\n             loading=\"lazy\"\r\n             width={123}\r\n             height={92}\r\n-            alt=\"feature\"\r\n-            src={post.imgSrc}\r\n+            alt={post.title || \"feature\"}\r\n+            src={img}\r\n           />\r\n-        ) : (\r\n-          \"\"\r\n         )}\r\n       </Link>\r\n+\r\n       <div className=\"content\">\r\n         <ul className=\"meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase\">\r\n-          <li>{post.date}</li>\r\n+          <li>{date}</li>\r\n           <li>\r\n             <a href=\"#\" className=\"text-uppercase\">\r\n-              {post.author}\r\n+              {author}\r\n             </a>\r\n           </li>\r\n         </ul>\r\n+\r\n         <h6 className=\"title\">\r\n-          <Link\r\n-            href={`/blog/${post.slug}`}\r\n-            className=\"link line-clamp-2\"\r\n-          >\r\n+          <Link href={`/blog/${post.slug}`} className=\"link line-clamp-2\">\r\n             {post.title}\r\n           </Link>\r\n         </h6>\r\n       </div>\r\n"
                 }
             ],
             "date": 1762450558895,
