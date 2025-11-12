@@ -1,6 +1,7 @@
 // app/blog/[slug]/page.tsx
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 
 import Header1 from "@/components/headers/Header1";
@@ -9,6 +10,7 @@ import Sidebar from "@/components/blog-single/Sidebar";
 import SocialShare2 from "@/components/blog-single/SocialShare2";
 import Comment from "@/components/blog-single/Comment";
 import BlogCard1 from "@/components/blog-cards/BlogCard1";
+// import type { PageProps } from "next"; 
 
 type Blog = {
   _id: string;
@@ -19,38 +21,53 @@ type Blog = {
   contentHtml: string;
   category?: { name: string; slug?: string };
   createdAt?: string;
+  schemaMarkup?: string;
 };
 
-const API = process.env.NEXT_PUBLIC_API_BASE!;
+const API = process.env.NEXT_PUBLIC_API_BASE || "";
 
+// -------- helpers --------
 async function fetchBlog(slug: string): Promise<Blog | null> {
-  const r = await fetch(`${API}/api/blogs/${slug}`, { cache: "no-store" });
-  if (!r.ok) return null;
-  return r.json();
+  try {
+    const r = await fetch(`${API}/api/blogs/${encodeURIComponent(slug)}`, {
+      cache: "no-store",
+    });
+    if (!r.ok) return null;
+    return r.json();
+  } catch {
+    return null;
+  }
 }
 
-async function fetchRelated(catName?: string, catSlug?: string, currentSlug?: string) {
-  const r = await fetch(`${API}/api/blogs?limit=100`, { cache: "no-store" });
-  if (!r.ok) return [];
-  const rows: Blog[] = await r.json();
-  return rows
-    .filter(
-      (b) =>
-        b.slug !== currentSlug &&
-        (b.category?.slug === catSlug || b.category?.name === catName)
-    )
-    .slice(0, 4);
+async function fetchRelated(
+  catName?: string,
+  catSlug?: string,
+  currentSlug?: string
+): Promise<Blog[]> {
+  try {
+    const r = await fetch(`${API}/api/blogs?limit=100`, { cache: "no-store" });
+    if (!r.ok) return [];
+    const rows: Blog[] = await r.json();
+    return rows
+      .filter(
+        (b) =>
+          b.slug !== currentSlug &&
+          (b.category?.slug === catSlug || b.category?.name === catName)
+      )
+      .slice(0, 4);
+  } catch {
+    return [];
+  }
 }
 
-// ✅ Next 15: params is a Promise in server components
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+// -------- metadata --------
+export async function generateMetadata(
+  { params }: PageProps<{ slug: string }>
+) {
+  const { slug } = await params; // <<— await the Promise
   const blog = await fetchBlog(slug);
-  if (!blog) return {};
+  if (!blog) return { title: "Post not found" };
+
   return {
     title: `${blog.title} || Drozy - Modern Blog & Magazine`,
     description: blog.category?.name || "Blog article",
@@ -64,12 +81,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+// -------- page --------
+export default async function Page(
+  { params }: PageProps<{ slug: string }>
+) {
+  const { id } = await params;
+  const { slug } = await params; // <<— await the Promise
+
   const blog = await fetchBlog(slug);
   if (!blog) return notFound();
 
@@ -82,6 +100,15 @@ export default async function Page({
   return (
     <>
       <Header1 />
+
+      {blog.schemaMarkup ? (
+        <Script
+          id={`schema-${blog.slug}`}
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: blog.schemaMarkup }}
+        />
+      ) : null}
 
       {/* breadcrumb */}
       <div className="bg-surface2-color">
@@ -105,13 +132,15 @@ export default async function Page({
             <div className="content">
               <div className="wrap-meta-feature d-flex align-items-center">
                 <span className="tag">
-                  <a className="text-title text_white">{blog.category?.name || "CATEGORY"}</a>
+                  <a className="text-title text_white">
+                    {blog.category?.name || "CATEGORY"}
+                  </a>
                 </span>
                 <ul className="meta-feature fw-7 d-flex mb_16 text-body-1 mb-0 align-items-center">
                   <li>
-                    {new Date(blog.createdAt || Date.now()).toLocaleDateString(undefined, {
-                      year: "numeric", month: "long", day: "numeric",
-                    })}
+                    {new Date(blog.createdAt || Date.now()).toLocaleDateString(
+                      undefined, { year: "numeric", month: "long", day: "numeric" }
+                    )}
                   </li>
                   <li>
                     <span className="text_secodary2-color">POST BY</span>{" "}
@@ -145,7 +174,7 @@ export default async function Page({
         </div>
       </div>
 
-      {/* main grid */}
+      {/* main */}
       <div className="main-content">
         <div className="single-post style-1">
           <div className="tf-container">
@@ -153,9 +182,7 @@ export default async function Page({
               <div className="col-lg-2 lg-hide">
                 <div className="share-bar style-1 text-center sticky-top">
                   <h5 className="mb_20">Share This Post</h5>
-                  <ul className="d-grid gap_10">
-                    <SocialShare2 />
-                  </ul>
+                  <ul className="d-grid gap_10"><SocialShare2 /></ul>
                 </div>
               </div>
 
@@ -168,7 +195,10 @@ export default async function Page({
                         dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
                       />
                     </div>
-                    <Comment postId={blog._id} />
+                    {/* <Comment postId={blog._id} /> */}
+                    {/* <Comment postId={id} /> */}
+                    <Comment key={blog._id} postId={String(blog._id)} />
+
                   </div>
                 </div>
               </div>
@@ -190,13 +220,13 @@ export default async function Page({
                 <BlogCard1
                   key={b._id}
                   post={{
-                    _id: b._id,
-                    slug: b.slug,
+                    id: b._id,
                     title: b.title,
-                    postedBy: b.postedBy,
-                    category: b.category,
-                    createdAt: b.createdAt,
-                    mainImage: b.mainImage,
+                    author: b.postedBy || "",
+                    category: b.category?.name || "",
+                    date: new Date(b.createdAt || Date.now()).toLocaleDateString(),
+                    imgSrc: b.mainImage?.url || "",
+                    href: `/blog/${b.slug}`,
                   }}
                 />
               ))}
