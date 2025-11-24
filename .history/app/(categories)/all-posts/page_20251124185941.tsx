@@ -64,7 +64,7 @@ export default async function Page({
                 Home
               </Link>
             </li>
-            <li>Categories</li>
+            <li>All Post</li>
             <li>Life Style</li>
           </ul>
         </div>

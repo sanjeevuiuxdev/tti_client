@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1762972424998,
@@ -24,6 +24,10 @@
                 {
                     "date": 1762972605300,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -168,32 +168,9 @@\n             )}\r\n           </div>\r\n \r\n           {/* Newsletter */}\r\n-          {/* {!(type == 3) && (\r\n-            <div className=\"footer-newsletter footer-item\">\r\n-              <h6 className=\"footer-title mb_20\">\r\n-                Subscribe for all the top news!\r\n-              </h6>\r\n-              <NewsLetterForm />\r\n-              <div className=\"box-fieldset-item d-flex\">\r\n-                <fieldset className=\"d-flex gap_12\">\r\n-                  <input type=\"checkbox\" className=\"tf-check\" id=\"note\" />\r\n-                </fieldset>\r\n-                <p className=\"text-body-1\">\r\n-                  By clicking the Subscribe button, you acknowledge that you\r\n-                  have read and agree to our{\" \"}\r\n-                  <a href=\"#\" className=\"fw-7 text_on-surface-color\">\r\n-                    Privacy Policy\r\n-                  </a>{\" \"}\r\n-                  and{\" \"}\r\n-                  <a href=\"#\" className=\"fw-7 text_on-surface-color\">\r\n-                    Terms Of Use\r\n-                  </a>\r\n-                </p>\r\n-              </div>\r\n-            </div>\r\n-          )} */}\r\n+     \r\n         </div>\r\n \r\n         {/* Footer bottom */}\r\n         <div className=\"footer-bottom d-flex align-items-center justify-content-between\">\r\n@@ -211,5 +188,6 @@\n           </ul>\r\n         </div>\r\n       </footer>\r\n     </div>\r\n- \n\\ No newline at end of file\n+  );\r\n+}\r\n"
+                },
+                {
+                    "date": 1763987480725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -157,9 +157,9 @@\n                   <ul className=\"footer-menu-list d-grid gap_12\">\r\n                     \r\n                       <li className=\"text-caption-1\" key={index}>\r\n                         <a href=\"#\" className=\"link\">\r\n-                          Priv\r\n+                          Priva\r\n                         </a>\r\n                       </li>\r\n                     \r\n                   </ul>\r\n"
                 }
             ],
             "date": 1762972424998,

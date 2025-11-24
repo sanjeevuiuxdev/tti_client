@@ -1,0 +1,18 @@
+{
+    "sourceFile": "data/footerLinks.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1763989393874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1763989393874,
+            "name": "Commit-0",
+            "content": "export const quickLinks = [\r\n  { label: \"Homepage\", href: \"/\" },\r\n  { label: \"About Us\", href: \"/about\" },\r\n  { label: \"Contact Us\", href: \"/contact\" },\r\n  // { label: \"Our Store\", href: \"/about\" },\r\n];\r\n\r\nexport const categories = [\r\n  { label: \"Economy\" },\r\n  { label: \"Tech & Ai\" },\r\n  { label: \"Health\" },\r\n  { label: \"Entertainment\" },\r\n  { label: \"Sport\" },\r\n];\r\n\r\nexport const pages = [\r\n  { label: \"Product Grid\" },\r\n  { label: \"Product Detail\" },\r\n  { label: \"My Account\" },\r\n  { label: \"Cart\" },\r\n  { label: \"CheckOut\" },\r\n];\r\n\r\nexport const policies = [\r\n  { label: \"Terms Of Services\" },\r\n  { label: \"Privacy Policy\" },\r\n  { label: \"Cookie Policy\" },\r\n];\r\n"
+        }
+    ]
+}
