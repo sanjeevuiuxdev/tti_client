@@ -1,0 +1,18 @@
+{
+    "sourceFile": "public/scss/main.scss",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1766344352987,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1766344352987,
+            "name": "Commit-0",
+            "content": "@use \"sass:meta\";\r\n@import \"../css/bootstrap.css\";\r\n@include meta.load-css(\"app.scss\");\r\n// @import \"../css/jquery.mb.YTPlayer.css\";\r\n@import \"../css/swiper-bundle.min.css\";\r\n\r\n// Font\r\n@import \"../font/fonts.css\";\r\n\r\n// Icon\r\n@import \"../icons/icomoon/style.css\";\r\nbody {\r\n  .dark-mode-logo {\r\n    display: none;\r\n  }\r\n  &.dark-mode {\r\n    .light-mode-logo {\r\n      display: none;\r\n    }\r\n    .dark-mode-logo {\r\n      display: block;\r\n    }\r\n  }\r\n}\r\n@media only screen and (max-width: 767px) {\r\n  .footer .footer-col-block .tf-collapse-content {\r\n    overflow-y: hidden;\r\n    display: block;\r\n    height: 0;\r\n    transition: 0.5s;\r\n  }\r\n}\r\n.form-search.style-1 {\r\n  z-index: 1;\r\n}\r\n@media (min-width: 768px) and (max-width: 1200px) {\r\n  .blog-card-4-desc {\r\n    display: none;\r\n  }\r\n}\r\n.object-fit-contain {\r\n  object-fit: contain;\r\n}\r\n.footer-col-block.page-link {\r\n  &:last-child {\r\n    border-right: none;\r\n  }\r\n}\r\n.page-3 {\r\n  .footer-content {\r\n    border-right: none;\r\n  }\r\n}\r\n.dark-mode {\r\n  .black-on-dark {\r\n    color: #161616 !important;\r\n  }\r\n}\r\n.tfSubscribeMsg {\r\n  display: none;\r\n  max-height: 0px;\r\n  // transition: 0.4s;\r\n  overflow: hidden;\r\n  &.active {\r\n    margin-top: 10px;\r\n    margin-bottom: 10px;\r\n    max-height: 180px;\r\n    display: block;\r\n  }\r\n}\r\n\r\n.blog-single-image {\r\n  max-height: 500px;\r\n  object-fit: contain;\r\n  height: auto !important;\r\n  width: auto !important;\r\n  display: block;\r\n  margin: 0 auto;\r\n}\r\n\r\n\r\n.sidebar-tags {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 10px;\r\n}\r\n\r\n.tag-pill {\r\n  padding: 8px 14px;\r\n  border: 1px solid #e5e5e5;\r\n  border-radius: 6px;\r\n  font-size: 14px;\r\n  color: #333;\r\n  text-transform: capitalize;\r\n  transition: all 0.2s ease;\r\n}\r\n\r\n.tag-pill:hover {\r\n  background: #111;\r\n  color: #fff;\r\n  border-color: #111;\r\n}\r\n"
+        }
+    ]
+}

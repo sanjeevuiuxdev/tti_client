@@ -1,46 +1,32 @@
 "use client";
 
-import { useState } from "react";
-
 export default function Contact() {
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-  
-    if (isSubmitting) return; // extra safety
-    setIsSubmitting(true);
-  
+
     const form = e.currentTarget;
     const formData = new FormData(form);
-  
+
     const payload = {
       name: formData.get("name"),
       phone: formData.get("phone"),
-      email: formData.get("email"),
       message: formData.get("message"),
     };
-  
+
     const API = process.env.NEXT_PUBLIC_API_BASE;
-  
-    try {
-      const res = await fetch(`${API}/api/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-  
-      if (res.ok) {
-        alert("Message sent successfully");
-        form.reset();
-      } else {
-        alert("Failed to send message");
-      }
-    } catch (err) {
-      alert("Something went wrong");
-    } finally {
-      setIsSubmitting(false);
+
+    const res = await fetch(`${API}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      alert("Message sent successfully");
+      form.reset();
+    } else {
+      alert("Failed to send message");
     }
   }
   return (
@@ -86,12 +72,12 @@ export default function Contact() {
           </fieldset>
         </div>
 
-        <fieldset style={{marginBottom:"15px"}} className="">
+        <fieldset className="">
             <label
               className="text-body-1 mb_8 text_on-surface-color"
               htmlFor="email"
             >
-              Email
+              Phone
             </label>
             <input
               className=""
@@ -128,21 +114,16 @@ export default function Contact() {
         </fieldset>
       </div>
       <div className="button-submit">
-      <button
-  className="tf-btn animate-hover-btn btn-switch-text"
-  type="submit"
-  disabled={isSubmitting}
-  style={{ opacity: isSubmitting ? 0.6 : 1, cursor: isSubmitting ? "not-allowed" : "pointer" }}
->
-  <span>
-    <span
-      className="btn-double-text"
-      data-text={isSubmitting ? "Sending..." : "Send Message"}
-    >
-      {isSubmitting ? "Sending..." : "Send Message"}
-    </span>
-  </span>
-</button>
+        <button
+          className="tf-btn animate-hover-btn btn-switch-text"
+          type="submit"
+        >
+          <span>
+            <span className="btn-double-text" data-text="Send Message">
+              Send Message
+            </span>
+          </span>
+        </button>
       </div>
     </form>
   );

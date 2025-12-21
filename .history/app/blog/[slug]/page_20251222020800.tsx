@@ -19,10 +19,6 @@ type Blog = {
   contentHtml: string;
   category?: { name: string; slug?: string };
   createdAt?: string;
-
-  metaTitle?: string;
-  metaDescription?: string;
-  schemaMarkup?: string;
 };
 
 const API = process.env.NEXT_PUBLIC_API_BASE!;
@@ -55,27 +51,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const blog = await fetchBlog(slug);
   if (!blog) return {};
-
   return {
-    title: blog.metaTitle || blog.title,
-    description:
-      blog.metaDescription ||
-      blog.category?.name ||
-      "Blog article",
-
+    title: `${blog.title}`,
+    description: blog.category?.name || "Blog article",
     openGraph: {
-      title: blog.metaTitle || blog.title,
-      description:
-        blog.metaDescription ||
-        blog.category?.name ||
-        "Blog article",
+      title: blog.title,
+      description: blog.category?.name || "Blog article",
       type: "article",
       url: `/blog/${blog.slug}`,
       images: blog.mainImage?.url ? [blog.mainImage.url] : undefined,
     },
   };
 }
-
 
 export default async function Page({
   params,
@@ -216,15 +203,6 @@ export default async function Page({
             </div>
           </div>
         )}
-
-{blog.schemaMarkup && (
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: blog.schemaMarkup,
-    }}
-  />
-)}
       </div>
 
       <Footer1 parentClass="tf-container" />

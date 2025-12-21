@@ -10,8 +10,8 @@ import PopularBlogs from "@/components/homes/home-2/PopularBlogs";
 
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Home 02 || Drozy - Modern Blog & Magazine React Nextjs Template",
-  description: "Drozy - Modern Blog & Magazine React Nextjs Template",
+  title: "Home 02",
+  description: "dfd Drozy - Modern Blog & Magazine React Nextjs Template",
 };
 export default function page() {
   return (

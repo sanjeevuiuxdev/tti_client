@@ -86,7 +86,7 @@ export default function Contact() {
           </fieldset>
         </div>
 
-        <fieldset style={{marginBottom:"15px"}} className="">
+        <fieldset style={{marginBottom:"10px"}} className="">
             <label
               className="text-body-1 mb_8 text_on-surface-color"
               htmlFor="email"

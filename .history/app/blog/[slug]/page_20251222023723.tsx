@@ -47,34 +47,6 @@ async function fetchRelated(catName?: string, catSlug?: string, currentSlug?: st
 }
 
 // ✅ Next 15: params is a Promise in server components
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const blog = await fetchBlog(slug);
-  if (!blog) return {};
-
-  return {
-    title: blog.metaTitle || blog.title,
-    description:
-      blog.metaDescription ||
-      blog.category?.name ||
-      "Blog article",
-
-    openGraph: {
-      title: blog.metaTitle || blog.title,
-      description:
-        blog.metaDescription ||
-        blog.category?.name ||
-        "Blog article",
-      type: "article",
-      url: `/blog/${blog.slug}`,
-      images: blog.mainImage?.url ? [blog.mainImage.url] : undefined,
-    },
-  };
-}
 
 
 export default async function Page({
@@ -216,15 +188,6 @@ export default async function Page({
             </div>
           </div>
         )}
-
-{blog.schemaMarkup && (
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: blog.schemaMarkup,
-    }}
-  />
-)}
       </div>
 
       <Footer1 parentClass="tf-container" />

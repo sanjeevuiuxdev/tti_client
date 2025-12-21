@@ -86,7 +86,7 @@ export default function Contact() {
           </fieldset>
         </div>
 
-        <fieldset style={{marginBottom:"15px"}} className="">
+        <fieldset className="">
             <label
               className="text-body-1 mb_8 text_on-surface-color"
               htmlFor="email"
@@ -128,21 +128,16 @@ export default function Contact() {
         </fieldset>
       </div>
       <div className="button-submit">
-      <button
-  className="tf-btn animate-hover-btn btn-switch-text"
-  type="submit"
-  disabled={isSubmitting}
-  style={{ opacity: isSubmitting ? 0.6 : 1, cursor: isSubmitting ? "not-allowed" : "pointer" }}
->
-  <span>
-    <span
-      className="btn-double-text"
-      data-text={isSubmitting ? "Sending..." : "Send Message"}
-    >
-      {isSubmitting ? "Sending..." : "Send Message"}
-    </span>
-  </span>
-</button>
+        <button
+          className="tf-btn animate-hover-btn btn-switch-text"
+          type="submit"
+        >
+          <span>
+            <span className="btn-double-text" data-text="Send Message">
+              Send Message
+            </span>
+          </span>
+        </button>
       </div>
     </form>
   );

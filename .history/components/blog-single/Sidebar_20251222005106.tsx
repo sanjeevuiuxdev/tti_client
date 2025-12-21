@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 type Category = {
   _id: string;
   name: string;
   slug: string;
-  postCount?: number;
+  postCount?: number; // optional if your /api/categories adds counts later
 };
 
 type PopularTag = {
@@ -16,47 +17,51 @@ type PopularTag = {
 };
 
 export default function Sidebar() {
-  const API = process.env.NEXT_PUBLIC_API_BASE!;
-
   const [cats, setCats] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const [tags, setTags] = useState<PopularTag[]>([]);
-  const [loadingCats, setLoadingCats] = useState(true);
 
-  // ✅ Fetch categories
   useEffect(() => {
     const ctrl = new AbortController();
-
+    const API = process.env.NEXT_PUBLIC_API_BASE!;
     fetch(`${API}/api/categories`, { signal: ctrl.signal })
-      .then((r) => r.json())
+      .then(async (r) => {
+        if (!r.ok) throw new Error(await r.text());
+        return r.json();
+      })
       .then((rows: Category[]) => setCats(rows))
-      .catch(() => setCats([]))
-      .finally(() => setLoadingCats(false));
-
+      .catch(() => { })
+      .finally(() => setLoading(false));
     return () => ctrl.abort();
-  }, [API]);
+  }, []);
 
-  // ✅ Fetch popular tags
+
+  // tags useeffect
+
   useEffect(() => {
     const ctrl = new AbortController();
+    const API = process.env.NEXT_PUBLIC_API_BASE!;
 
+    // fetch(`${API}/api/tags/popular?limit=12`, { signal: ctrl.signal })
     fetch(`${API}/api/blogs/popular?limit=12`, { signal: ctrl.signal })
-      .then((r) => r.json())
-      .then((res) => {
-        if (Array.isArray(res)) setTags(res);
-        else setTags([]);
-      })
-      .catch(() => setTags([]));
+
+      .then(r => r.json())
+      .then(setTags)
+      .catch(() => { });
 
     return () => ctrl.abort();
-  }, [API]);
+  }, []);
 
   return (
     <div className="sidebar">
-      {/* Categories */}
+
+
+      {/* Categories (dynamic) */}
       <div className="sidebar__item">
         <h5 className="sidebar__title">Categories</h5>
 
-        {loadingCats ? (
+        {loading ? (
           <p>Loading…</p>
         ) : (
           <ul className="sidebar-categories">
@@ -64,12 +69,17 @@ export default function Sidebar() {
               cats.map((c) => (
                 <li
                   key={c._id}
-                  className="item d-flex align-items-center justify-content-between fw-7 text-body-1"
+                  className="item d-flex align-items-center justify-content-between"
                 >
-                  <Link href={`/categories/${c.slug}`}>{c.name}</Link>
-                  {typeof c.postCount === "number" && (
+                  <Link
+                    className="fw-7 text-body-1 text_on-surface-color"
+                    href={`/categories/${c.slug}`}
+                  >
+                    {c.name}
+                  </Link>
+                  {typeof c.postCount === "number" ? (
                     <span className="number">{c.postCount}</span>
-                  )}
+                  ) : null}
                 </li>
               ))
             ) : (
@@ -79,18 +89,18 @@ export default function Sidebar() {
         )}
       </div>
 
-      {/* Popular Tags */}
-      <div className="sidebar__item">
-        <h5 className="sidebar__title">Popular Tag</h5>
 
-        <div className="sidebar-tags">
-          {tags.map((t) => (
-            <span key={t.tag} className="tag-pill">
-              {t.tag.replace(/-/g, " ")}
-            </span>
-          ))}
-        </div>
-      </div>
+      <div className="sidebar__item">
+  <h5 className="sidebar__title">Popular Tag</h5>
+
+  <div className="sidebar-tags">
+    {tags.map((t) => (
+      <span key={t.tag} className="tag-pill">
+        {t.tag.replace(/-/g, " ")}
+      </span>
+    ))}
+  </div>
+</div>
     </div>
   );
 }

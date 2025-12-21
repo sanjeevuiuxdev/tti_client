@@ -11,9 +11,16 @@ type Category = {
   postCount?: number; // optional if your /api/categories adds counts later
 };
 
+type PopularTag = {
+  tag: string;
+  count: number;
+};
+
 export default function Sidebar() {
   const [cats, setCats] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [tags, setTags] = useState<PopularTag[]>([]);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -24,53 +31,29 @@ export default function Sidebar() {
         return r.json();
       })
       .then((rows: Category[]) => setCats(rows))
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
+    return () => ctrl.abort();
+  }, []);
+
+
+  // tags useeffect
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    const API = process.env.NEXT_PUBLIC_API_BASE!;
+
+    fetch(`${API}/api/tags/popular?limit=12`, { signal: ctrl.signal })
+      .then(r => r.json())
+      .then(setTags)
+      .catch(() => { });
+
     return () => ctrl.abort();
   }, []);
 
   return (
     <div className="sidebar">
-      {/* About Writer (unchanged) */}
-      <div className="sidebar__item about text-center">
-        {/* <h5 className="sidebar__title">About Writer</h5> */}
-        <div className="box-author style-1 sidebar__item">
-          <div className="info text-center">
-            <div className="avatar mb_30">
-              <Image
-                alt="avatar"
-                src="/images/avatar/main-avatar.jpg"
-                width={400}
-                height={400}
-              />
-            </div>
-            <h4 className="mb_4">
-              <a href="#" className="link">Emma Carson</a>
-            </h4>
-            <p className="text-body-1">Portland, Oregon, USA</p>
-          </div>
-          <ul className="social">
-            <li className="text-title fw-7 text_on-surface-color">
-              <a href="#" className="d-flex align-items-center gap_12">
-                <i className="icon-FacebookLogo" />
-                23k Likes
-              </a>
-            </li>
-            <li className="text-title fw-7 text_on-surface-color">
-              <a href="#" className="d-flex align-items-center gap_12">
-                <i className="icon-XLogo" />
-                41k Follower
-              </a>
-            </li>
-            <li className="text-title fw-7 text_on-surface-color">
-              <a href="#" className="d-flex align-items-center gap_12">
-                <i className="icon-PinterestLogo" />
-                32k Follower
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+
 
       {/* Categories (dynamic) */}
       <div className="sidebar__item">
@@ -102,6 +85,23 @@ export default function Sidebar() {
             )}
           </ul>
         )}
+      </div>
+
+
+      <div className="sidebar__item">
+        <h5 className="sidebar__title">Popular Tag</h5>
+
+        <div className="sidebar-tags">
+          {tags.map((t) => (
+            <Link
+              key={t.tag}
+              href={`/tags/${t.tag}`}
+              className="tag-pill"
+            >
+              {t.tag.replace(/-/g, " ")}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

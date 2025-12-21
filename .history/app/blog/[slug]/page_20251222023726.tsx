@@ -216,15 +216,6 @@ export default async function Page({
             </div>
           </div>
         )}
-
-{blog.schemaMarkup && (
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: blog.schemaMarkup,
-    }}
-  />
-)}
       </div>
 
       <Footer1 parentClass="tf-container" />

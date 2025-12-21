@@ -77,26 +77,3 @@ body {
   display: block;
   margin: 0 auto;
 }
-
-
-.sidebar-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tag-pill {
-  padding: 8px 14px;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #333;
-  text-transform: capitalize;
-  transition: all 0.2s ease;
-}
-
-.tag-pill:hover {
-  background: #111;
-  color: #fff;
-  border-color: #111;
-}

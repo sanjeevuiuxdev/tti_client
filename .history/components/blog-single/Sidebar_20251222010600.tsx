@@ -64,7 +64,7 @@ export default function Sidebar() {
               cats.map((c) => (
                 <li
                   key={c._id}
-                  className="item d-flex align-items-center justify-content-between fw-7 text-body-1"
+                  className="item d-flex align-items-center justify-content-between"
                 >
                   <Link href={`/categories/${c.slug}`}>{c.name}</Link>
                   {typeof c.postCount === "number" && (
