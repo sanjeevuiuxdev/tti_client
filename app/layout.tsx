@@ -10,9 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="alternate" href="https://example.com/es-es" hreflang="es-ES" />
-      </head>
+      
       <body>
         <div id="wrapper">{children}</div>
         <SearchModal />
