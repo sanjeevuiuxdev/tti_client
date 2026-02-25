@@ -10,6 +10,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "TTI WORLD CONNECT",
   description: "TTI WORLD CONNECT - Modern Blog Website",
+  alternates: {
+    languages: {
+      "es-ES": "https://www.travelntoursindia.co.uk/es-es",
+    },
+  },
 };
 export default function Home() {
   return (
