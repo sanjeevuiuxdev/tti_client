@@ -47,6 +47,7 @@ export default function ScrollTop() {
           style={{
             strokeDasharray: "307.919, 307.919",
             transition: "none",
+<<<<<<< HEAD
             strokeDashoffset: (() => {
               const C = 307.919;
               const progress = Number.isFinite(scrollHeight) && scrollHeight > 0
@@ -55,6 +56,9 @@ export default function ScrollTop() {
               const offset = C - progress * C;
               return Number.isFinite(offset) ? offset : C;
             })(),
+=======
+            strokeDashoffset: 307.919 - (scrolled / scrollHeight) * 307.919,
+>>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
           }}
         />
       </svg>

@@ -14,9 +14,13 @@ export default function PopularBlogs() {
             const relatedGridPosts = gridPosts2.filter(
               (gridPost) => gridPost.parentId === mainPost.id
             );
+<<<<<<< HEAD
             const hrefMain = mainPost.slug
               ? `/${(mainPost as any).language || 'en'}/blog/${mainPost.slug}`
               : `/single-post-1/${mainPost.id}`;
+=======
+
+>>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
             return (
               <div className="col-lg-6" key={mainPost.id}>
                 <div className="feature-post-item style-default style-border hover-image-translate">
@@ -43,7 +47,14 @@ export default function PopularBlogs() {
                       </ul>
                     </div>
                     <h2 className="title">
+<<<<<<< HEAD
                       <Link href={hrefMain} className="link line-clamp-2">
+=======
+                      <Link
+                        href={`/single-post-1/${mainPost.id}`}
+                        className="link line-clamp-2"
+                      >
+>>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                         {mainPost.title}
                       </Link>
                     </h2>
@@ -70,7 +81,14 @@ export default function PopularBlogs() {
                         <i className="icon-Timer" /> 4 Mins read
                       </div>
                     </div>
+<<<<<<< HEAD
                     <Link href={hrefMain} className="overlay-link" />
+=======
+                    <Link
+                      href={`/single-post-1/${mainPost.id}`}
+                      className="overlay-link"
+                    />
+>>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                   </div>
                   <p>{mainPost.description}</p>
                 </div>
@@ -97,7 +115,11 @@ export default function PopularBlogs() {
                         </div>
                         <h5 className="title mb_16">
                           <Link
+<<<<<<< HEAD
                             href={grid.slug ? `/${(grid as any).language || 'en'}/blog/${grid.slug}` : `/single-post-1/${grid.id}`}
+=======
+                            href={`/single-post-1/${grid.id}`}
+>>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                             className="link"
                           >
                             {grid.title}

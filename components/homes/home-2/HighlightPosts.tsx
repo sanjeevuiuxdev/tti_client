@@ -40,7 +40,11 @@ export default function HighlightPosts() {
                       </div>
                     </div>
                     <Link
+<<<<<<< HEAD
                       href={post.slug ? `/${post.language || 'en'}/blog/${post.slug}` : `/single-post-1/${post.id}`}
+=======
+                      href={`/single-post-1/${post.id}`}
+>>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                       className="overlay-link"
                     />
                   </div>
@@ -56,7 +60,11 @@ export default function HighlightPosts() {
                     </ul>
                     <h4 className="title">
                       <Link
+<<<<<<< HEAD
                         href={post.slug ? `/${post.language || 'en'}/blog/${post.slug}` : `/single-post-1/${post.id}`}
+=======
+                        href={`/single-post-1/${post.id}`}
+>>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                         className="link line-clamp-2"
                       >
                         {post.title}
