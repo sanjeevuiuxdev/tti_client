@@ -19,7 +19,6 @@ export default function Blogcard2({ post }: { post: BlogPost }) {
   return (
     <div className="feature-post-item style-small d-flex align-items-center hover-image-rotate">
       <Link href={`/${(post as any).language || 'en'}/blog/${post.slug}`} className="img-style">
-      <Link href={`/blog/${post.slug}`} className="img-style">
         {img && (
           <Image
             decoding="async"
@@ -45,7 +44,6 @@ export default function Blogcard2({ post }: { post: BlogPost }) {
 
         <h6 className="title">
           <Link href={`/${(post as any).language || 'en'}/blog/${post.slug}`} className="link line-clamp-2">
-          <Link href={`/blog/${post.slug}`} className="link line-clamp-2">
             {post.title}
           </Link>
         </h6>
