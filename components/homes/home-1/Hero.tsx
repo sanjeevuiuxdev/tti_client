@@ -116,14 +116,10 @@ export default function Hero() {
                       width={1800}
                       height={700}
                       alt={b.title}
-                      src={b.mainImage?.url || "/images/feature-post/thumbs-main-post-1.webp"}
-                      priority
-                    />
-                    <Link href={`/${b.language || 'en'}/blog/${b.slug}`} className="overlay-link" />
                       src={b.mainImage?.url || "/placeholder-1800x700.jpg"}
                       priority
                     />
-                    <Link href={`/blog/${b.slug}`} className="overlay-link" />
+                    <Link href={`/${b.language || 'en'}/blog/${b.slug}`} className="overlay-link" />
                   </div>
                   <div
                     className="content cs-entry__content"
@@ -133,7 +129,6 @@ export default function Hero() {
                     <div className="content__top d-flex justify-content-between">
                       <Link
                         href={`/${b.language || 'en'}/categories/${b.category?.slug || ""}`}
-                        href={`/categories/${b.category?.slug || ""}`}
                         className="tag categories text-title text_white"
                       >
                         {b.category?.name || "Banner"}
@@ -146,7 +141,6 @@ export default function Hero() {
                       <h1 className="text_white mb_24 line-clamp-2">
                         <Link
                           href={`/${b.language || 'en'}/blog/${b.slug}`}
-                          href={`/blog/${b.slug}`}
                           className="hover-line-text text_white"
                         >
                           {b.title}
@@ -160,14 +154,13 @@ export default function Hero() {
           ) : (
             // fallback placeholder
             <SwiperSlide className="swiper-slide" key="placeholder">
-              <div className="hero-banner style-default">
+                <div className="hero-banner style-default">
                 <div className="img-thumbs">
                   <Image
                     width={1800}
                     height={700}
                     alt="page-title"
                     src="/images/feature-post/thumbs-main-post-1.webp"
-                    src="/placeholder-1800x700.jpg"
                     priority
                   />
                   <Link href="#" className="overlay-link" />

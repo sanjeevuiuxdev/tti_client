@@ -45,10 +45,6 @@ export default function PopularBlogs() {
                     </div>
                     <h2 className="title">
                       <Link href={hrefMain} className="link line-clamp-2">
-                      <Link
-                        href={`/single-post-1/${mainPost.id}`}
-                        className="link line-clamp-2"
-                      >
                         {mainPost.title}
                       </Link>
                     </h2>
@@ -76,10 +72,6 @@ export default function PopularBlogs() {
                       </div>
                     </div>
                     <Link href={hrefMain} className="overlay-link" />
-                    <Link
-                      href={`/single-post-1/${mainPost.id}`}
-                      className="overlay-link"
-                    />
                   </div>
                   <p>{mainPost.description}</p>
                 </div>
@@ -107,7 +99,6 @@ export default function PopularBlogs() {
                         <h5 className="title mb_16">
                           <Link
                             href={grid.slug ? `/${(grid as any).language || 'en'}/blog/${grid.slug}` : `/single-post-1/${grid.id}`}
-                            href={`/single-post-1/${grid.id}`}
                             className="link"
                           >
                             {grid.title}
