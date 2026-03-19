@@ -98,7 +98,7 @@ export default function PopularBlogs() {
                         </div>
                         <h5 className="title mb_16">
                           <Link
-                            href={grid.slug ? `/${(grid as any).language || 'en'}/blog/${grid.slug}` : `/single-post-1/${grid.id}`}
+                            href={(grid as any).slug ? `/${(grid as any).language || 'en'}/blog/${(grid as any).slug}` : `/single-post-1/${grid.id}`}
                             className="link"
                           >
                             {grid.title}
