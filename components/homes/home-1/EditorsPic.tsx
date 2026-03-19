@@ -88,11 +88,8 @@ export default function EditorsPic() {
                     </div> */}
                   </div>
                   <Link
-<<<<<<< HEAD
                     href={`/${mainPost.language || 'en'}/blog/${mainPost.slug}`}
-=======
                     href={`/blog/${mainPost.slug}`}
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                     className="overlay-link"
                   />
                 </div>
@@ -110,11 +107,8 @@ export default function EditorsPic() {
                 </ul>
                 <h2 className="title mb_20">
                   <Link
-<<<<<<< HEAD
                     href={`/${mainPost.language || 'en'}/blog/${mainPost.slug}`}
-=======
                     href={`/blog/${mainPost.slug}`}
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                     className="link line-clamp-2"
                   >
                     {mainPost.title}
@@ -124,11 +118,8 @@ export default function EditorsPic() {
                   {plain(mainPost.contentHtml || "", 200)}
                 </p>
                 <Link
-<<<<<<< HEAD
                   href={`/${mainPost.language || 'en'}/blog/${mainPost.slug}`}
-=======
                   href={`/single-post-1/${mainPost.slug}`}
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                   className="hover-underline-link text-body-1 fw-7 text_on-surface-color"
                 >
                   Read More Post
@@ -168,11 +159,8 @@ export default function EditorsPic() {
                     </div> */}
                   </div>
                   <Link
-<<<<<<< HEAD
                     href={`/${post.language || 'en'}/blog/${post.slug}`}
-=======
                     href={`/blog/${mainPost.slug}`}
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                     className="overlay-link"
                   />
                 </div>
@@ -187,7 +175,6 @@ export default function EditorsPic() {
                       </a>
                     </li>
                   </ul>
-<<<<<<< HEAD
                     <h5 className="title mb_16">
                       <Link
                         href={`/${post.language || 'en'}/blog/${post.slug}`}
@@ -196,7 +183,6 @@ export default function EditorsPic() {
                         {post.title}
                       </Link>
                     </h5>
-=======
                   <h5 className="title mb_16">
                     <Link
                       href={`/blog/${mainPost.slug}`}
@@ -205,7 +191,6 @@ export default function EditorsPic() {
                       {post.title}
                     </Link>
                   </h5>
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                   <p className="text-body-1 line-clamp-2">
                     {plain(post.contentHtml || "", 140)}
                   </p>

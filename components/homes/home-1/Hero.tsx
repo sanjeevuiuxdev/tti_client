@@ -14,10 +14,7 @@ type Blog = {
   mainImage?: { url?: string };
   createdAt?: string;
   category?: { name?: string; slug?: string };
-<<<<<<< HEAD
   language?: string;
-=======
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
 };
 
 // helpers
@@ -43,10 +40,7 @@ function toCard2(b: Blog) {
     date: fmtDate(b.createdAt),
     author: b.postedBy || "",
     title: b.title,
-<<<<<<< HEAD
     language: b.language || "en",
-=======
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
   };
 }
 
@@ -122,17 +116,14 @@ export default function Hero() {
                       width={1800}
                       height={700}
                       alt={b.title}
-<<<<<<< HEAD
                       src={b.mainImage?.url || "/images/feature-post/thumbs-main-post-1.webp"}
                       priority
                     />
                     <Link href={`/${b.language || 'en'}/blog/${b.slug}`} className="overlay-link" />
-=======
                       src={b.mainImage?.url || "/placeholder-1800x700.jpg"}
                       priority
                     />
                     <Link href={`/blog/${b.slug}`} className="overlay-link" />
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                   </div>
                   <div
                     className="content cs-entry__content"
@@ -141,11 +132,8 @@ export default function Hero() {
                   >
                     <div className="content__top d-flex justify-content-between">
                       <Link
-<<<<<<< HEAD
                         href={`/${b.language || 'en'}/categories/${b.category?.slug || ""}`}
-=======
                         href={`/categories/${b.category?.slug || ""}`}
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                         className="tag categories text-title text_white"
                       >
                         {b.category?.name || "Banner"}
@@ -157,11 +145,8 @@ export default function Hero() {
                     <div className="content__body">
                       <h1 className="text_white mb_24 line-clamp-2">
                         <Link
-<<<<<<< HEAD
                           href={`/${b.language || 'en'}/blog/${b.slug}`}
-=======
                           href={`/blog/${b.slug}`}
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                           className="hover-line-text text_white"
                         >
                           {b.title}
@@ -181,11 +166,8 @@ export default function Hero() {
                     width={1800}
                     height={700}
                     alt="page-title"
-<<<<<<< HEAD
                     src="/images/feature-post/thumbs-main-post-1.webp"
-=======
                     src="/placeholder-1800x700.jpg"
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
                     priority
                   />
                   <Link href="#" className="overlay-link" />

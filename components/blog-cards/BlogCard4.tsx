@@ -22,10 +22,7 @@ type AnyPost = {
   postedBy?: string;
   excerpt?: string;
   contentHtml?: string;
-<<<<<<< HEAD
   language?: string;
-=======
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
 };
 
 function fmtDate(iso?: string) {
@@ -43,16 +40,13 @@ function fmtDate(iso?: string) {
 
 export default function BlogCard4({ post }: { post: AnyPost }) {
   // normalize inputs
-<<<<<<< HEAD
   const lang = (post as any).language || "en";
   const href =
     post.slug
       ? `/${lang}/blog/${post.slug}` // new API pages (language-aware)
-=======
   const href =
     post.slug
       ? `/blog/${post.slug}` // new API pages
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
       : `/single-post-1/${String(post.id ?? "")}`; // legacy demo pages
 
   const img =

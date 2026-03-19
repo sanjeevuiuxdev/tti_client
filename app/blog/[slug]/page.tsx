@@ -9,10 +9,7 @@ import Sidebar from "@/components/blog-single/Sidebar";
 import SocialShare2 from "@/components/blog-single/SocialShare2";
 import Comment from "@/components/blog-single/Comment";
 import BlogCard1 from "@/components/blog-cards/BlogCard1";
-<<<<<<< HEAD
 import { redirect } from "next/navigation";
-=======
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
 
 type Blog = {
   _id: string;
@@ -29,11 +26,8 @@ type Blog = {
   schemaMarkup?: string;
 };
 
-<<<<<<< HEAD
 const API = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:5000";
-=======
 const API = process.env.NEXT_PUBLIC_API_BASE!;
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
 
 async function fetchBlog(slug: string): Promise<Blog | null> {
   const r = await fetch(`${API}/api/blogs/${slug}`, { cache: "no-store" });
@@ -64,13 +58,11 @@ export async function generateMetadata({
   const blog = await fetchBlog(slug);
   if (!blog) return {};
 
-<<<<<<< HEAD
   // Redirect to localized URL; this page acts as a compatibility redirect
   // so links like `/blog/:slug` map to the language-aware route.
   const lang = blog.language || "en";
   redirect(`/${lang}/blog/${blog.slug}`);
   return {};
-=======
   return {
     title: blog.metaTitle || blog.title,
     description:
@@ -89,7 +81,6 @@ export async function generateMetadata({
       images: blog.mainImage?.url ? [blog.mainImage.url] : undefined,
     },
   };
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
 }
 
 
@@ -98,11 +89,9 @@ export default async function Page({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-<<<<<<< HEAD
   // This page now redirects in generateMetadata above, so we should never
   // reach this render path. Return a simple notFound fallback to be safe.
   return notFound();
-=======
   const { slug } = await params;
   const blog = await fetchBlog(slug);
   if (!blog) return notFound();
@@ -251,5 +240,4 @@ export default async function Page({
       <Footer1 parentClass="tf-container" />
     </>
   );
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
 }

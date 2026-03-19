@@ -18,11 +18,8 @@ export default function Blogcard2({ post }: { post: BlogPost }) {
 
   return (
     <div className="feature-post-item style-small d-flex align-items-center hover-image-rotate">
-<<<<<<< HEAD
       <Link href={`/${(post as any).language || 'en'}/blog/${post.slug}`} className="img-style">
-=======
       <Link href={`/blog/${post.slug}`} className="img-style">
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
         {img && (
           <Image
             decoding="async"
@@ -31,10 +28,7 @@ export default function Blogcard2({ post }: { post: BlogPost }) {
             height={92}
             alt={post.title || "feature"}
             src={img}
-<<<<<<< HEAD
             style={{ height: "92px", width: "auto" }}
-=======
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
           />
         )}
       </Link>
@@ -50,11 +44,8 @@ export default function Blogcard2({ post }: { post: BlogPost }) {
         </ul>
 
         <h6 className="title">
-<<<<<<< HEAD
           <Link href={`/${(post as any).language || 'en'}/blog/${post.slug}`} className="link line-clamp-2">
-=======
           <Link href={`/blog/${post.slug}`} className="link line-clamp-2">
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
             {post.title}
           </Link>
         </h6>

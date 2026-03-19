@@ -1,0 +1,8 @@
+app/blog/[slug]/page.tsx
+components/blog-cards/BlogCard1.tsx
+components/blog-cards/BlogCard4.tsx
+components/blog-cards/Blogcard2.tsx
+components/homes/home-1/EditorsPic.tsx
+components/homes/home-1/Hero.tsx
+components/homes/home-2/HighlightPosts.tsx
+components/homes/home-2/PopularBlogs.tsx

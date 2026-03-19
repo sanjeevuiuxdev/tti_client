@@ -28,10 +28,7 @@ type AnyPost = {
   // body
   excerpt?: string;
   contentHtml?: string;
-<<<<<<< HEAD
   language?: string;
-=======
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
 };
 
 function fmtDate(iso?: string, fallback?: string) {
@@ -48,7 +45,6 @@ function fmtDate(iso?: string, fallback?: string) {
 }
 
 export default function BlogCard1({ post }: { post: AnyPost }) {
-<<<<<<< HEAD
   const lang = (post as any).language || "en";
   const href = post.slug
     ? `/${lang}/blog/${post.slug}` // API shape (language-aware)
@@ -59,14 +55,12 @@ export default function BlogCard1({ post }: { post: AnyPost }) {
   const isValidSrc = (s?: string) =>
     typeof s === "string" && (s.startsWith("/") || /^https?:\/\//.test(s));
   const safeImg = isValidSrc(img) ? img : "/images/placeholder/977x550.webp";
-=======
   const href = post.slug
     ? `/blog/${post.slug}` // API shape
     : `/blog/${String(post.id ?? "")}`; // seeded/demo fallback
 
   const img =
     post.mainImage?.url || post.imgSrc || "/images/placeholder/977x550.webp";
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
 
   const catLabel =
     typeof post.category === "string"
@@ -96,11 +90,8 @@ export default function BlogCard1({ post }: { post: AnyPost }) {
             width={328}
             height={246}
             alt={post.title}
-<<<<<<< HEAD
             src={safeImg}
-=======
             src={img}
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
           />
           <div className="wrap-tag">
             {catLabel && (
