@@ -14,8 +14,8 @@ export default function PopularBlogs() {
             const relatedGridPosts = gridPosts2.filter(
               (gridPost) => gridPost.parentId === mainPost.id
             );
-            const hrefMain = mainPost.slug
-              ? `/${(mainPost as any).language || 'en'}/blog/${mainPost.slug}`
+            const hrefMain = (mainPost as any).slug
+              ? `/${(mainPost as any).language || 'en'}/blog/${(mainPost as any).slug}`
               : `/single-post-1/${mainPost.id}`;
 
             return (
