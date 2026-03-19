@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/blogs.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1762364457646,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1762364457646,
+            "name": "Commit-0",
+            "content": "export async function fetchBlogs(params: { section?: string; category?: string; limit?: number }) {\n    const base = process.env.NEXT_PUBLIC_API_BASE!;\n    const qs = new URLSearchParams();\n    if (params.section) qs.set(\"section\", params.section);\n    if (params.category) qs.set(\"category\", params.category);\n    if (params.limit) qs.set(\"limit\", String(params.limit));\n    const url = `${base}/api/blogs${qs.toString() ? `?${qs.toString()}` : \"\"}`;\n    const res = await fetch(url, { next: { revalidate: 300 } });\n    if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);\n    return res.json();\n  }\n  "
+        }
+    ]
+}

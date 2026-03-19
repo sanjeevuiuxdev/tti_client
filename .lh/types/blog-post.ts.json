@@ -1,0 +1,18 @@
+{
+    "sourceFile": "types/blog-post.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1762285974362,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1762285974362,
+            "name": "Commit-0",
+            "content": "export type Category = {\r\n  _id: string;\r\n  name: string;\r\n  slug: string;\r\n  metaTitle?: string;\r\n  metaDescription?: string;\r\n};\r\n\r\nexport type BlogPost = {\r\n  _id: string;\r\n  title: string;\r\n  slug: string;\r\n  postedBy?: string;\r\n  mainImage?: { url: string };\r\n  contentHtml: string;\r\n  category?: { name: string; slug: string };\r\n  metaTitle?: string;\r\n  metaDescription?: string;\r\n  createdAt?: string;\r\n};\r\n"
+        }
+    ]
+}

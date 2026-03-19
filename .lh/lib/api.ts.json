@@ -1,0 +1,26 @@
+{
+    "sourceFile": "lib/api.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1762286022036,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1762288211190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,14 @@\n-const BASE = process.env.NEXT_PUBLIC_API_BASE!;\n-\n-export async function getJSON<T>(path: string, init?: RequestInit): Promise<T> {\n-  const res = await fetch(`${BASE}${path}`, { next: { revalidate: 300 }, ...init });\n-  if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);\n-  return res.json();\n-}\n+// /lib/api.ts (or the inline helper you used)\n+export async function getJSON<T>(path: string): Promise<T> {\n+    const base = process.env.NEXT_PUBLIC_API_BASE;\n+    if (!base) {\n+      throw new Error(\"NEXT_PUBLIC_API_BASE is missing. Set it in .env.local and restart Next.\");\n+    }\n+    const res = await fetch(`${base}${path}`, { next: { revalidate: 300 } });\n+    if (!res.ok) {\n+      const body = await res.text();\n+      throw new Error(`API ${res.status}: ${body}`);\n+    }\n+    return res.json();\n+  }\n+  \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1762288659363,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,22 @@\n-// /lib/api.ts (or the inline helper you used)\n+// lib/api.ts\n export async function getJSON<T>(path: string): Promise<T> {\n     const base = process.env.NEXT_PUBLIC_API_BASE;\n+  \n+    // Temporary loud debug – remove after it prints once\n+    console.log(\"NEXT_PUBLIC_API_BASE =\", JSON.stringify(base));\n+  \n     if (!base) {\n-      throw new Error(\"NEXT_PUBLIC_API_BASE is missing. Set it in .env.local and restart Next.\");\n+      throw new Error(\n+        \"NEXT_PUBLIC_API_BASE is missing. Put it in .env.local (NEXT_PUBLIC_API_BASE=http://localhost:5000) and restart Next.\"\n+      );\n     }\n-    const res = await fetch(`${base}${path}`, { next: { revalidate: 300 } });\n+  \n+    const url = `${base}${path}`; // path should start with /api/...\n+    const res = await fetch(url, { next: { revalidate: 300 } });\n     if (!res.ok) {\n       const body = await res.text();\n-      throw new Error(`API ${res.status}: ${body}`);\n+      throw new Error(`API ${res.status} for ${url}: ${body}`);\n     }\n     return res.json();\n   }\n   \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1762286022036,
+            "name": "Commit-0",
+            "content": "const BASE = process.env.NEXT_PUBLIC_API_BASE!;\n\nexport async function getJSON<T>(path: string, init?: RequestInit): Promise<T> {\n  const res = await fetch(`${BASE}${path}`, { next: { revalidate: 300 }, ...init });\n  if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);\n  return res.json();\n}\n"
+        }
+    ]
+}

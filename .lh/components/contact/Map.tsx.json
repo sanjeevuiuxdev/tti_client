@@ -1,0 +1,18 @@
+{
+    "sourceFile": "components/contact/Map.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1763994866212,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1763994866212,
+            "name": "Commit-0",
+            "content": "export default function Map() {\r\n  return (\r\n    <iframe\r\n      src=\"\"\r\n      width=\"100%\"\r\n      style={{ width: \"100%\", height: \"100%\" }}\r\n      allowFullScreen\r\n      loading=\"lazy\"\r\n      referrerPolicy=\"no-referrer-when-downgrade\"\r\n    />\r\n  );\r\n}\r\n"
+        }
+    ]
+}

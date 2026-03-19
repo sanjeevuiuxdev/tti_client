@@ -1,0 +1,18 @@
+{
+    "sourceFile": "components/features/BlogSidebar.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1762539400310,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1762539400310,
+            "name": "Commit-0",
+            "content": "\"use client\";\r\nimport { useEffect, useState } from \"react\";\r\nimport Link from \"next/link\";\r\n\r\ntype Category = {\r\n  _id: string;\r\n  name: string;\r\n  slug: string;\r\n  postCount?: number;\r\n};\r\n\r\nexport default function BlogSidebar() {\r\n  const [categories, setCategories] = useState<Category[]>([]);\r\n  const [loading, setLoading] = useState(true);\r\n\r\n  useEffect(() => {\r\n    const ctrl = new AbortController();\r\n    const API = process.env.NEXT_PUBLIC_API_BASE!;\r\n    fetch(`${API}/api/categories`, { signal: ctrl.signal })\r\n      .then(async (r) => {\r\n        if (!r.ok) throw new Error(await r.text());\r\n        return r.json();\r\n      })\r\n      .then((rows: Category[]) => {\r\n        setCategories(rows);\r\n      })\r\n      .catch(() => {})\r\n      .finally(() => setLoading(false));\r\n    return () => ctrl.abort();\r\n  }, []);\r\n\r\n  return (\r\n    <div className=\"sidebar\">\r\n      <div className=\"sidebar__item\">\r\n        <h5 className=\"sidebar__title\">Categories</h5>\r\n        {loading ? (\r\n          <p>Loading...</p>\r\n        ) : (\r\n          <ul className=\"sidebar-categories\">\r\n            {categories.length ? (\r\n              categories.map((cat) => (\r\n                <li\r\n                  key={cat._id}\r\n                  className=\"item d-flex align-items-center justify-content-between\"\r\n                >\r\n                  <Link\r\n                    className=\"fw-7 text-body-1 text_on-surface-color\"\r\n                    href={`/categories/${cat.slug}`}\r\n                  >\r\n                    {cat.name}\r\n                  </Link>\r\n                  {cat.postCount !== undefined && (\r\n                    <span className=\"number\">{cat.postCount}</span>\r\n                  )}\r\n                </li>\r\n              ))\r\n            ) : (\r\n              <li>No categories found.</li>\r\n            )}\r\n          </ul>\r\n        )}\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n"
+        }
+    ]
+}
