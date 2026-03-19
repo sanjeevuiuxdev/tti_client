@@ -8,7 +8,7 @@ export default function ScrollTop() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // You can use 'auto' or 'instant' as well
+      behavior: "smooth",
     });
   };
 
@@ -25,11 +25,15 @@ export default function ScrollTop() {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const C = 307.919;
+  const progress =
+    Number.isFinite(scrollHeight) && scrollHeight > 0
+      ? Math.min(1, Math.max(0, scrolled / scrollHeight))
+      : 0;
+  const offset = Number.isFinite(C - progress * C) ? C - progress * C : C;
 
   return (
     <div
@@ -47,18 +51,7 @@ export default function ScrollTop() {
           style={{
             strokeDasharray: "307.919, 307.919",
             transition: "none",
-<<<<<<< HEAD
-            strokeDashoffset: (() => {
-              const C = 307.919;
-              const progress = Number.isFinite(scrollHeight) && scrollHeight > 0
-                ? Math.min(1, Math.max(0, scrolled / scrollHeight))
-                : 0;
-              const offset = C - progress * C;
-              return Number.isFinite(offset) ? offset : C;
-            })(),
-=======
-            strokeDashoffset: 307.919 - (scrolled / scrollHeight) * 307.919,
->>>>>>> f87894cb250ee7ac728329456c9610b14a9004d7
+            strokeDashoffset: offset,
           }}
         />
       </svg>
