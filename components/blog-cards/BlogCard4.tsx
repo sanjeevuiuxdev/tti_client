@@ -41,13 +41,9 @@ function fmtDate(iso?: string) {
 export default function BlogCard4({ post }: { post: AnyPost }) {
   // normalize inputs
   const lang = (post as any).language || "en";
-  const href =
-    post.slug
-      ? `/${lang}/blog/${post.slug}` // new API pages (language-aware)
-  const href =
-    post.slug
-      ? `/blog/${post.slug}` // new API pages
-      : `/single-post-1/${String(post.id ?? "")}`; // legacy demo pages
+  const href = post.slug
+    ? `/${lang}/blog/${post.slug}` // new API pages (language-aware)
+    : `/single-post-1/${String(post.id ?? "")}`; // legacy demo pages
 
   const img =
     post.mainImage?.url || post.imgSrc || "/images/placeholder/977x550.webp";

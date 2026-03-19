@@ -55,12 +55,6 @@ export default function BlogCard1({ post }: { post: AnyPost }) {
   const isValidSrc = (s?: string) =>
     typeof s === "string" && (s.startsWith("/") || /^https?:\/\//.test(s));
   const safeImg = isValidSrc(img) ? img : "/images/placeholder/977x550.webp";
-  const href = post.slug
-    ? `/blog/${post.slug}` // API shape
-    : `/blog/${String(post.id ?? "")}`; // seeded/demo fallback
-
-  const img =
-    post.mainImage?.url || post.imgSrc || "/images/placeholder/977x550.webp";
 
   const catLabel =
     typeof post.category === "string"
@@ -91,7 +85,6 @@ export default function BlogCard1({ post }: { post: AnyPost }) {
             height={246}
             alt={post.title}
             src={safeImg}
-            src={img}
           />
           <div className="wrap-tag">
             {catLabel && (

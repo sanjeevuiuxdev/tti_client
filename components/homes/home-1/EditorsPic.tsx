@@ -88,8 +88,7 @@ export default function EditorsPic() {
                     </div> */}
                   </div>
                   <Link
-                    href={`/${mainPost.language || 'en'}/blog/${mainPost.slug}`}
-                    href={`/blog/${mainPost.slug}`}
+                    href={`/${(mainPost as any).language || 'en'}/blog/${mainPost.slug}`}
                     className="overlay-link"
                   />
                 </div>
@@ -107,8 +106,7 @@ export default function EditorsPic() {
                 </ul>
                 <h2 className="title mb_20">
                   <Link
-                    href={`/${mainPost.language || 'en'}/blog/${mainPost.slug}`}
-                    href={`/blog/${mainPost.slug}`}
+                    href={`/${(mainPost as any).language || 'en'}/blog/${mainPost.slug}`}
                     className="link line-clamp-2"
                   >
                     {mainPost.title}
@@ -118,8 +116,7 @@ export default function EditorsPic() {
                   {plain(mainPost.contentHtml || "", 200)}
                 </p>
                 <Link
-                  href={`/${mainPost.language || 'en'}/blog/${mainPost.slug}`}
-                  href={`/single-post-1/${mainPost.slug}`}
+                  href={`/${(mainPost as any).language || 'en'}/blog/${mainPost.slug}`}
                   className="hover-underline-link text-body-1 fw-7 text_on-surface-color"
                 >
                   Read More Post
@@ -159,8 +156,7 @@ export default function EditorsPic() {
                     </div> */}
                   </div>
                   <Link
-                    href={`/${post.language || 'en'}/blog/${post.slug}`}
-                    href={`/blog/${mainPost.slug}`}
+                    href={`/${(post as any).language || 'en'}/blog/${post.slug}`}
                     className="overlay-link"
                   />
                 </div>
@@ -177,20 +173,12 @@ export default function EditorsPic() {
                   </ul>
                     <h5 className="title mb_16">
                       <Link
-                        href={`/${post.language || 'en'}/blog/${post.slug}`}
+                        href={`/${(post as any).language || 'en'}/blog/${post.slug}`}
                         className="link line-clamp-2"
                       >
                         {post.title}
                       </Link>
                     </h5>
-                  <h5 className="title mb_16">
-                    <Link
-                      href={`/blog/${mainPost.slug}`}
-                      className="link line-clamp-2"
-                    >
-                      {post.title}
-                    </Link>
-                  </h5>
                   <p className="text-body-1 line-clamp-2">
                     {plain(post.contentHtml || "", 140)}
                   </p>
