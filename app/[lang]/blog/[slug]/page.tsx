@@ -76,6 +76,22 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
   const blog = await fetchBlog(slug, lang);
   if (!blog) return notFound();
 
+  // sanitize and decode any escaped HTML entities (if content was pasted inside a code block)
+  // uses isomorphic-dompurify — install with: npm install isomorphic-dompurify
+  let safeContent = blog.contentHtml || "";
+  try {
+    // decode simple HTML entities that may be present when users pasted into a code block
+    safeContent = safeContent.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+    // sanitize (server-safe)
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const createDOMPurify = require("isomorphic-dompurify").default;
+    const DOMPurify = createDOMPurify(globalThis as any);
+    safeContent = DOMPurify.sanitize(safeContent);
+  } catch (err) {
+    // fallback: use original content
+    safeContent = blog.contentHtml || "";
+  }
+
   const related = await fetchRelated(
     blog.category?.name,
     blog.category?.slug,
@@ -168,7 +184,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
                     <div className="post-details">
                       <div
                         className="post-details__html"
-                        dangerouslySetInnerHTML={{ __html: blog.contentHtml }}
+                        dangerouslySetInnerHTML={{ __html: safeContent }}
                       />
                     </div>
                     <Comment postId={blog._id} />
